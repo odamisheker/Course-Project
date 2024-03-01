@@ -1,0 +1,1 @@
+// work for slave Danik
