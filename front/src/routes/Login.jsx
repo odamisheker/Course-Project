@@ -16,7 +16,7 @@ export default function Login() {
     //  validate user?
     // if true go home (fetch)
     changeUser(name);
-    navigate("/home");
+    navigate("/chat");
   };
 
   return (

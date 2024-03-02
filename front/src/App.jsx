@@ -28,20 +28,20 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-        {
-          path: "/home",
-          element: (
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          ),
-        },
+        // {
+        //   path: "/home",
+        //   element: (
+        //     <RequireAuth>
+        //       <Home />
+        //     </RequireAuth>
+        //   ),
+        // },
         {
           path: "/chat",
           element: (
-            <RequireChat>
+            <RequireAuth>
               <Chat />
-            </RequireChat>
+            </RequireAuth>
           ),
         },
       ],
