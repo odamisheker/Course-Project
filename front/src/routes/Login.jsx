@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContextProvider";
+import styles from "../styles/Login.module.css";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -19,23 +20,34 @@ export default function Login() {
   };
 
   return (
-    <>
-      <h2>Login</h2>
-      <input
-        placeholder="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        placeholder="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Submit</button>
-      <button onClick={() => navigate("/signup")}>
-        Don't have account - sign up!
-      </button>
-    </>
+    <div className={styles.main}>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>SESSION</h1>
+        <div className={styles.block}>
+          <input
+            placeholder="Login"
+            className={styles.input}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            placeholder="Password"
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className={styles.connect} onClick={handleLogin}>
+            Connect
+          </button>
+          <button
+            className={styles.navigate}
+            onClick={() => navigate("/signup")}
+          >
+            Don't have account - sign up!
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

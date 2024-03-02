@@ -1,11 +1,9 @@
-// work for slave Danik
-
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContextProvider";
-import styles from "../styles/SignUp.module.css";
+import styles from "../styles/EnterChat.module.css";
 
-export default function SignUp() {
+export default function EnterChat() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
@@ -27,33 +25,19 @@ export default function SignUp() {
         <h1 className={styles.title}>SESSION</h1>
         <div className={styles.block}>
           <input
-            placeholder="Login"
+            placeholder="Chat code"
             className={styles.input}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <input
-            placeholder="Password"
-            type="password"
-            className={styles.input}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            placeholder="Repeat password"
-            type="password"
-            className={styles.input}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
           <button className={styles.connect} onClick={handleLogin}>
-            SignUp
+            Connect
           </button>
           <button
             className={styles.navigate}
             onClick={() => navigate("/login")}
           >
-            Already have account?
+            Not anonymous login
           </button>
         </div>
       </div>
