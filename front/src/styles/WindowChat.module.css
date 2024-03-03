@@ -1,0 +1,7 @@
+.main {
+  display: flex;
+  gap: 40px;
+}
+.chats {
+  width: 500px;
+}

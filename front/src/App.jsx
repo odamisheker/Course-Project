@@ -5,7 +5,7 @@ import SignUp from "./routes/SignUp";
 import EnterChat from "./routes/EnterChat";
 import Home from "./routes/Home";
 import UserContextProvider from "./components/UserContextProvider";
-import Chat from "./routes/Chat";
+import Chat from "./routes/WindowChat";
 import RequireAuth from "./components/RequireAuth";
 import RequireChat from "./components/RequireChat";
 import Layout from "./routes/Layout";

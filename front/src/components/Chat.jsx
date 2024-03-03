@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../components/UserContextProvider";
-import Message from "../components/Message";
+import { UserContext } from "./UserContextProvider";
+import Message from "./Message";
 import styles from "../styles/Chat.module.css";
 
 export default function Chat() {
@@ -10,13 +10,12 @@ export default function Chat() {
 
   /*
   TODO: load messanges
-          chats
-          toolbar
-          load chats(users) or make another component(general)
+        props(id собеседника или же сразу сообщения)
+        хранить сообщение как объект(для хранения текста, времени и тд)
   */
 
   const { id } = useContext(UserContext);
-  
+
   const handleSend = () => {
     //  validate message
     //  post
