@@ -3,3 +3,10 @@
   height: 100%;
 }
 
+.link {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  justify-content: center;
+}
+
