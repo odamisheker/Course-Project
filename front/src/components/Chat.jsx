@@ -9,9 +9,9 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
 
   /*
-  TODO: load messanges
-        props(id собеседника или же сразу сообщения)
-        хранить сообщение как объект(для хранения текста, времени и тд)
+  TODO: load messanges 
+     *   props(id собеседника или же сразу сообщения)
+     *   хранить сообщение как объект(для хранения текста, времени и тд)
   */
 
   const { id } = useContext(UserContext);
@@ -21,7 +21,14 @@ export default function Chat() {
     //  post
     //  output on screen
     if (!message.trim()) return;
-    setMessages((curMessanges) => [...curMessanges, message]);
+
+    let newMessage = {
+      text: message.trim(),
+      time: Date.now(),
+      username: id,
+    };
+
+    setMessages((curMessanges) => [...curMessanges, newMessage]);
     setMessage("");
   };
   return (
@@ -29,7 +36,7 @@ export default function Chat() {
       <div className={styles.chat}>
         <div className={styles.messages}>
           {messages.map((m, i) => (
-            <Message key={i} text={m} />
+            <Message key={i} data={m} />
           ))}
         </div>
         <div className={styles.sendBlock}>
