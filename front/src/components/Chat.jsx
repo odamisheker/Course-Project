@@ -30,7 +30,15 @@ export default function Chat() {
 
     setMessages((curMessanges) => [...curMessanges, newMessage]);
     setMessage("");
+
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSend();
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.chat}>
@@ -45,6 +53,7 @@ export default function Chat() {
             className={styles.input}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyUp={handleKeyPress}
           />
           <button className={styles.send} onClick={handleSend}>
             Send
