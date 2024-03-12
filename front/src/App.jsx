@@ -1,11 +1,11 @@
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Login from "./routes/Login";
-import SignUp from "./routes/SignUp";
-import EnterChat from "./routes/EnterChat";
+import Login from "./routes/Login/Login";
+import SignUp from "./routes/SignUp/SignUp";
+import EnterChat from "./routes/EnterChat/EnterChat";
 import Home from "./routes/Home";
 import UserContextProvider from "./components/UserContextProvider";
-import Chat from "./routes/WindowChat";
+import Chat from "./routes/Chat/Chat";
 import RequireAuth from "./components/RequireAuth";
 import RequireChat from "./components/RequireChat";
 import Layout from "./routes/Layout";

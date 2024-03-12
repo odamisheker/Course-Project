@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../components/UserContextProvider";
-import styles from "../styles/EnterChat.module.css";
+import { UserContext } from "../../components/UserContextProvider";
+import styles from "./Login.module.css";
 
-export default function EnterChat() {
+export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
@@ -16,7 +16,7 @@ export default function EnterChat() {
     //  validate user?
     // if true go home (fetch)
     changeUser(name);
-    navigate("/home");
+    navigate("/chat");
   };
 
   return (
@@ -25,19 +25,26 @@ export default function EnterChat() {
         <h1 className={styles.title}>SESSION</h1>
         <div className={styles.block}>
           <input
-            placeholder="Chat code"
+            placeholder="Login"
             className={styles.input}
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            placeholder="Password"
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button className={styles.connect} onClick={handleLogin}>
             Connect
           </button>
           <button
             className={styles.navigate}
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/signup")}
           >
-            Not anonymous login
+            Don't have account - sign up!
           </button>
         </div>
       </div>

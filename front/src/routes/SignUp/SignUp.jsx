@@ -1,9 +1,11 @@
+// ! work for slave Danik
+
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../components/UserContextProvider";
-import styles from "../styles/Login.module.css";
+import { UserContext } from "../../components/UserContextProvider";
+import styles from "./SignUp.module.css";
 
-export default function Login() {
+export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
@@ -16,7 +18,7 @@ export default function Login() {
     //  validate user?
     // if true go home (fetch)
     changeUser(name);
-    navigate("/chat");
+    navigate("/home");
   };
 
   return (
@@ -37,14 +39,21 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <input
+            placeholder="Repeat password"
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <button className={styles.connect} onClick={handleLogin}>
-            Connect
+            SignUp
           </button>
           <button
             className={styles.navigate}
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
           >
-            Don't have account - sign up!
+            Already have account?
           </button>
         </div>
       </div>

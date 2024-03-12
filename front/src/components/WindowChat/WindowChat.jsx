@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import { UserContext } from "./UserContextProvider";
-import Message from "./Message";
-import styles from "../styles/Chat.module.css";
+import { UserContext } from "../UserContextProvider";
+import Message from "../Message/Message";
+import styles from "./WindowChat.module.css";
 
-export default function Chat() {
+export default function WindowChat() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -20,9 +20,10 @@ export default function Chat() {
     //  validate message
     //  post
     //  output on screen
+
     if (!message.trim()) return;
 
-    let newMessage = {
+    const newMessage = {
       text: message.trim(),
       time: Date.now(),
       username: id,
@@ -30,7 +31,6 @@ export default function Chat() {
 
     setMessages((curMessanges) => [...curMessanges, newMessage]);
     setMessage("");
-
   };
 
   const handleKeyPress = (e) => {
