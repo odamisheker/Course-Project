@@ -8,18 +8,26 @@ import styles from "../styles/SignUp.module.css";
 export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [errors, setErrors] = useState(null);
 
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
 
-  const handleLogin = () => {
+  const handleLogin = (password, repeatPassword) => {
     //  fetch...
     //  validate user?
     // if true go home (fetch)
     changeUser(name);
     navigate("/home");
+    /*if (password != repeatPassword) {
+      setErrors("Invalid password");
+      console.log(errors);
+    }
+    */
   };
+
+
 
   return (
     <div className={styles.main}>
@@ -43,15 +51,18 @@ export default function SignUp() {
             placeholder="Repeat password"
             type="password"
             className={styles.input}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={repeatPassword}
+            onChange={(e) => setRepeatPassword(e.target.value)}
           />
-          <button className={styles.connect} onClick={handleLogin}>
+          <button className={styles.connect} 
+            onClick={handleLogin}
+          >
             SignUp
           </button>
           <button
             className={styles.navigate}
             onClick={() => navigate("/login")}
+            
           >
             Already have account?
           </button>
