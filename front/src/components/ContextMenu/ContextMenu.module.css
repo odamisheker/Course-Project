@@ -1,0 +1,33 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  transition: 0.5s;
+}
+
+.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  background-color: #fff;
+  padding: 15px;
+
+  border: 1px solid black;
+  border-radius: 10px;
+
+  transform: scale(0.5);
+  transition: all 0.4s;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.content_active {
+  transform: scale(1);
+}

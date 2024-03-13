@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
 import styles from "./Message.module.css";
+import ContextMenu from "../ContextMenu/ContextMenu";
 
 function Message({ data: { text, time, username } }) {
   /*
@@ -11,22 +12,20 @@ function Message({ data: { text, time, username } }) {
     maybe edit delete
   */
 
-  const [modalActive, setModaleActive] = useState(false);
+  const [position, setPosition] = useState({ x: null, y: null });
+  const [menuActive, setMenuActive] = useState(false);
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    setMenuActive(true);
+    setPosition({ x: e.clientX, y: e.clientY });
+  };
   return (
-    <div
-      onContextMenu={(e) => {
-        e.preventDefault();
-        console.log(e);
-        setModaleActive(true);
-      }}
-      className={styles.container}
-    >
-      <Modal active={modalActive} setActive={setModaleActive}>
-        <div className={styles.modal}>
-          <button className={styles.button}>delete</button>
-          <button className={styles.button}>edit</button>
-        </div>
-      </Modal>
+    <div onContextMenu={handleContextMenu} className={styles.container}>
+      <ContextMenu
+        active={menuActive}
+        setActive={setMenuActive}
+        position={position}
+      />
       <div className={styles.message}>
         <p>{text}</p>
         <p className={styles.time}>
