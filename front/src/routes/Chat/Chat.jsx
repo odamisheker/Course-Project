@@ -10,8 +10,8 @@ export default function Chat() {
 
   return (
     <div className={styles.main}>
-      <MessageBar />
-      <WindowChat />
+      <MessageBar className={styles.messageBar} />
+      <WindowChat className={styles.windowChat} />
     </div>
   );
 }

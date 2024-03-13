@@ -25,13 +25,15 @@ export default function WindowChat() {
 
   return (
     <div className={styles.main}>
-      <div className={styles.chat}>
-        <div className={styles.messages}>
-          {messages.map((m, i) => (
-            <Message key={i} data={m} />
-          ))}
+      <div className={styles.wrapper}>
+        <div className={styles.chat}>
+          <div className={styles.messages}>
+            {messages.map((m, i) => (
+              <Message key={i} data={m} />
+            ))}
+          </div>
+          <InputMessage onSend={handleSend} />
         </div>
-        <InputMessage onSend={handleSend} />
       </div>
     </div>
   );

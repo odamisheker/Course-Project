@@ -5,7 +5,7 @@
   justify-content: space-between;
 }
 .input {
-  height: 35px;
+  height: 40px;
   width: 73%;
 
   border: 1px solid black;
@@ -17,7 +17,7 @@
 }
 .send {
   width: 25%;
-  height: 35px;
+  height: 40px;
 
   background-color: #454545;
   border: none;
