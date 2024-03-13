@@ -24,24 +24,3 @@
   gap: 5px;
   padding: 5px;
 }
-.sendBlock {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.input {
-  height: 35px;
-  width: 70%;
-  border: 1px solid black;
-  font-size: 1rem;
-  padding-left: 5px;
-}
-.send {
-  width: 25%;
-  height: 35px;
-  background-color: #454545;
-  border: 1px solid black;
-  color: white;
-  font-size: 1rem;
-}

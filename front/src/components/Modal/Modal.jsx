@@ -4,7 +4,10 @@ export default function Modal({ active, setActive, children }) {
   return (
     <div
       className={active ? `${styles.modal} ${styles.active}` : styles.modal}
-      onClick={() => setActive(false)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setActive(false);
+      }}
     >
       <div
         className={

@@ -1,6 +1,11 @@
 import styles from "./ContextMenu.module.css";
 
-export default function ContextMenu({ active, setActive, position: { x, y } }) {
+export default function ContextMenu({
+  active,
+  setActive,
+  position: { x, y },
+  children,
+}) {
   return (
     <div
       onClick={() => setActive(false)}
@@ -19,12 +24,7 @@ export default function ContextMenu({ active, setActive, position: { x, y } }) {
           left: x,
         }}
       >
-        <button>Ответить</button>
-        <button>Копировать</button>
-        <button>Изменить</button>
-        <button>Закрепить</button>
-        <button>Переслать</button>
-        <button>Удалить</button>
+        {children}
       </div>
     </div>
   );

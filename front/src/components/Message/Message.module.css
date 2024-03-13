@@ -32,3 +32,18 @@
   background: none;
   border: none;
 }
+
+/* CONTEXT MENU ITEM */
+.menuItem {
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menuItem:hover {
+  background-color: #f0f0f0;
+}

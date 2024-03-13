@@ -1,43 +1,27 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { UserContext } from "../UserContextProvider";
 import Message from "../Message/Message";
 import styles from "./WindowChat.module.css";
+import InputMessage from "../InputMessage/InputMessage";
 
 export default function WindowChat() {
-  const [message, setMessage] = useState("");
   const [errors, setErrors] = useState(null);
   const [messages, setMessages] = useState([]);
 
   /*
   TODO: load messanges 
-     *   props(id собеседника или же сразу сообщения)
-     *   хранить сообщение как объект(для хранения текста, времени и тд)
+        props(id собеседника или же сразу сообщения)
+        хранить сообщение как объект(для хранения текста, времени и тд)
   */
 
   const { id } = useContext(UserContext);
 
-  const handleSend = () => {
-    //  validate message
+  const handleSend = useCallback((newMessage) => {
     //  post
     //  output on screen
 
-    if (!message.trim()) return;
-
-    const newMessage = {
-      text: message.trim(),
-      time: Date.now(),
-      username: id,
-    };
-
     setMessages((curMessanges) => [...curMessanges, newMessage]);
-    setMessage("");
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSend();
-    }
-  };
+  }, []);
 
   return (
     <div className={styles.main}>
@@ -47,18 +31,7 @@ export default function WindowChat() {
             <Message key={i} data={m} />
           ))}
         </div>
-        <div className={styles.sendBlock}>
-          <input
-            placeholder="your message"
-            className={styles.input}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyUp={handleKeyPress}
-          />
-          <button className={styles.send} onClick={handleSend}>
-            Send
-          </button>
-        </div>
+        <InputMessage onSend={handleSend} />
       </div>
     </div>
   );
