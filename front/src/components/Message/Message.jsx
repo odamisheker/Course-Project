@@ -3,6 +3,7 @@ import Modal from "../Modal/Modal";
 import { useState } from "react";
 import styles from "./Message.module.css";
 import ContextMenu from "../ContextMenu/ContextMenu";
+import clipboard from "clipboard-copy";
 
 function Message({ data: { text, time, username } }) {
   /*
@@ -30,7 +31,9 @@ function Message({ data: { text, time, username } }) {
         position={position}
       >
         <p className={styles.menuItem}>Answer</p>
-        <p className={styles.menuItem}>Copy</p>
+        <p className={styles.menuItem} onClick={() => clipboard(text)}>
+          Copy
+        </p>
         <p className={styles.menuItem}>Edit</p>
         <p className={styles.menuItem}>Pin</p>
         <p className={styles.menuItem}>Переслать</p>

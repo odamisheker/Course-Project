@@ -6,6 +6,10 @@ export default function ContextMenu({
   position: { x, y },
   children,
 }) {
+  // проверка координат на выход за поля окна браузера
+  const adjustedX = x + 200 > window.innerWidth ? x - 200 : x;
+  const adjustedY = y + 250 > window.innerHeight ? y - 200 : y;
+
   return (
     <div
       onClick={() => setActive(false)}
@@ -20,8 +24,8 @@ export default function ContextMenu({
         className={`${styles.content} ${active ? styles.content_active : ""}`}
         style={{
           position: "absolute",
-          top: y,
-          left: x,
+          top: adjustedY,
+          left: adjustedX,
         }}
       >
         {children}
