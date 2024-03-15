@@ -9,6 +9,7 @@ import Chat from "./routes/Chat/Chat";
 import RequireAuth from "./components/RequireAuth";
 import RequireChat from "./components/RequireChat";
 import Layout from "./routes/Layout";
+import ChatContextProvider from "./components/ChatContextProvider";
 
 function App() {
   const router = createBrowserRouter([
@@ -40,7 +41,9 @@ function App() {
           path: "/chat",
           element: (
             <RequireAuth>
-              <Chat />
+              <ChatContextProvider>
+                <Chat />
+              </ChatContextProvider>
             </RequireAuth>
           ),
         },

@@ -3,6 +3,7 @@ import { UserContext } from "../UserContextProvider";
 import Message from "../Message/Message";
 import styles from "./WindowChat.module.css";
 import InputMessage from "../InputMessage/InputMessage";
+import ChatToolBar from "../ChatToolBar/ChatToolBar";
 
 export default function WindowChat() {
   const [errors, setErrors] = useState(null);
@@ -27,6 +28,7 @@ export default function WindowChat() {
     <div className={styles.main}>
       <div className={styles.wrapper}>
         <div className={styles.chat}>
+          <ChatToolBar />
           <div className={styles.messages}>
             {messages.map((m, i) => (
               <Message key={i} data={m} />

@@ -1,9 +1,7 @@
-import { useState } from "react";
 import User from "../User/User";
-import ContextMenu from "../ContextMenu/ContextMenu";
 
 export default function UserList({ users }) {
-  //TODO onClick -> changeId => change WindowChat
+  //TODO onClick -> changeId in Context => change WindowChat
 
   return (
     <div>
