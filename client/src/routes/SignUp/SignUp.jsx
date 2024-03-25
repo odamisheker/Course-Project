@@ -15,7 +15,6 @@ export default function SignUp() {
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
 
-
   const handleLogin = async () => {
     try {
       User.parse({ password });
@@ -26,7 +25,7 @@ export default function SignUp() {
       navigate("/home");
       setErrors(null);
     } catch (err) {
-      setErrors(err);
+      setErrors(err?.errors?.map((error) => error.message).join(", "));
     }
   };
 
@@ -40,6 +39,7 @@ export default function SignUp() {
             className={styles.input}
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
           <input
             placeholder="Password"
@@ -47,6 +47,7 @@ export default function SignUp() {
             className={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <input
             placeholder="Repeat password"
@@ -54,12 +55,17 @@ export default function SignUp() {
             className={styles.input}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
           <button className={styles.connect} onClick={handleLogin}>
             SignUp
           </button>
-          {errors?.password && (
-            <div className={styles.error}>{errors}</div>
+          {errors && (
+            <div className={styles.error}>
+              {errors.split(",").map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </div>
           )}
           <button
             className={styles.navigate}
