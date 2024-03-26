@@ -7,6 +7,7 @@ import ChatToolBar from "../ChatToolBar/ChatToolBar";
 
 export default function WindowChat() {
   const [errors, setErrors] = useState(null);
+  const [message, setMessage] = useState(null);
   const [messages, setMessages] = useState([]);
 
   /*
