@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import styles from "./InputMessage.module.css";
-import { UserContext } from "../UserContextProvider";
+import { UserContext } from "../context/UserContextProvider";
 
-const InputMessage = ({ onSend }) => {
+const InputMessage = ({ message, onMessageChange, onSend }) => {
   //TODO эмоджи, файлы , фото ,  видео, гс
   // может даже тут отправлять на сервер сообщение, но хз
 
   const { id } = useContext(UserContext);
 
-  const [message, setMessage] = useState("");
+  //const [message, setMessage] = useState("");
 
   //TODO найти что нибудь поприличнее этого , если есть конечно
   //Да нормтема че вы пацаны(((
@@ -21,16 +21,18 @@ const InputMessage = ({ onSend }) => {
   const handleSend = () => {
     //Todo validate message
 
-    if (!message.trim()) return;
+    if (!message.text.trim()) return;
 
-    const newMessage = {
-      text: message.trim(),
-      time: Date.now(),
-      username: id,
-    };
-
-    onSend(newMessage);
-    setMessage("");
+    if ("time" in message) {
+    } else {
+      const newMessage = {
+        text: message.text.trim(),
+        time: Date.now(),
+        username: id,
+      };
+      onSend(newMessage);
+    }
+    onMessageChange({ text: "" });
   };
 
   return (
@@ -38,8 +40,10 @@ const InputMessage = ({ onSend }) => {
       <input
         placeholder="your message"
         className={styles.input}
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        value={message.text}
+        onChange={(e) =>
+          onMessageChange((c) => ({ ...c, text: e.target.value }))
+        }
         onKeyUp={handleKeyPress}
       />
       <button className={styles.send} onClick={handleSend}>

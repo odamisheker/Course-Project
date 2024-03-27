@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../components/UserContextProvider";
+import { UserContext } from "../../components/context/UserContextProvider";
+
 import styles from "./EnterChat.module.css";
 import { Code } from "../../utils/validation";
 
