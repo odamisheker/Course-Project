@@ -11,6 +11,7 @@ const InputMessage = ({ onSend }) => {
   const [message, setMessage] = useState("");
 
   //TODO найти что нибудь поприличнее этого , если есть конечно
+  //Да нормтема че вы пацаны(((
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSend();

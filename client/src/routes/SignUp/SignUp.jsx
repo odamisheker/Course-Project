@@ -1,7 +1,7 @@
 // ! work for slave Danik
 
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/UserContextProvider";
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
@@ -15,11 +15,18 @@ export default function SignUp() {
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
 
-  const handleLogin = async () => {
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSignUp();
+    }
+  };
+
+  const handleSignUp = async () => {
     try {
       User.parse({ password });
       if (password !== confirmPassword) {
         setErrors("Passwords are not the same");
+        return;
       }
       changeUser(name);
       navigate("/home");
@@ -31,8 +38,9 @@ export default function SignUp() {
 
   return (
     <div className={styles.main}>
+      <h1 className={styles.title}>SESSION</h1>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>SESSION</h1>
+        <div className={styles.desc}>Non-anonymous use:</div>
         <div className={styles.block}>
           <input
             placeholder="Login"
@@ -57,8 +65,12 @@ export default function SignUp() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <button className={styles.connect} onClick={handleLogin}>
-            SignUp
+          <button
+            className={styles.connect}
+            onClick={handleSignUp}
+            onKeyUp={handleKeyPress}
+          >
+            Sign Up
           </button>
           {errors && (
             <div className={styles.error}>
@@ -67,13 +79,10 @@ export default function SignUp() {
               ))}
             </div>
           )}
-          <button
-            className={styles.navigate}
-            onClick={() => navigate("/login")}
-          >
-            Already have account?
-          </button>
         </div>
+        <Link to="/login" className={styles.navigate}>
+          Already have account?
+        </Link>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/UserContextProvider";
 import styles from "./Login.module.css";
+import { User } from "../../utils/validation";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -11,18 +12,30 @@ export default function Login() {
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
 
-  const handleLogin = () => {
-    //  fetch...
-    //  validate user?
-    // if true go home (fetch)
-    changeUser(name);
-    navigate("/chat");
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
+  //  fetch...
+  //  validate user?
+  // if true go home (fetch)
+  const handleLogin = async () => {
+    try {
+      User.parse({ password });
+      changeUser(name);
+      navigate("/chat");
+    } catch (err) {
+      setErrors(err?.errors?.map((error) => error.message).join(", "));
+    }
   };
 
   return (
     <div className={styles.main}>
+      <h1 className={styles.title}>SESSION</h1>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>SESSION</h1>
+        <div className={styles.desc}>Non-anonymous use:</div>
         <div className={styles.block}>
           <input
             placeholder="Login"
@@ -37,16 +50,24 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button className={styles.connect} onClick={handleLogin}>
+          <button
+            className={styles.connect}
+            onClick={handleLogin}
+            onKeyUp={handleKeyPress}
+          >
             Connect
           </button>
-          <button
-            className={styles.navigate}
-            onClick={() => navigate("/signup")}
-          >
-            Don't have account - sign up!
-          </button>
+          {errors && (
+            <div className={styles.error}>
+              {errors.split(",").map((error, index) => (
+                <div key={index}>{error}</div>
+              ))}
+            </div>
+          )}
         </div>
+        <Link to="/signup" className={styles.navigate}>
+          Don't have account - sign up
+        </Link>
       </div>
     </div>
   );
