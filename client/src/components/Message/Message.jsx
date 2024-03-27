@@ -5,13 +5,15 @@ import styles from "./Message.module.css";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import clipboard from "clipboard-copy";
 
-function Message({ data: { text, time, username } }) {
+function Message({ onDelete, onEdit, data }) {
   /*
   TODO:
     time
     date
     maybe edit delete
   */
+
+  const { text, time, username } = data;
 
   const [position, setPosition] = useState({ x: null, y: null });
   const [menuActive, setMenuActive] = useState(false);
@@ -34,7 +36,9 @@ function Message({ data: { text, time, username } }) {
         <p className={styles.menuItem} onClick={() => clipboard(text)}>
           Copy
         </p>
-        <p className={styles.menuItem}>Edit</p>
+        <p className={styles.menuItem} onClick={() => onEdit(data)}>
+          Edit
+        </p>
         <p className={styles.menuItem}>Pin</p>
         <p className={styles.menuItem}>Переслать</p>
         <p
@@ -49,7 +53,9 @@ function Message({ data: { text, time, username } }) {
         </p>
       </ContextMenu>
       <Modal active={modalActive} setActive={setModalActive}>
-        <p className={styles.menuItem}>Delete</p>
+        <p className={styles.menuItem} onClick={() => onDelete(data)}>
+          Delete
+        </p>
         <p className={styles.menuItem}>Delete for all</p>
       </Modal>
       <div onContextMenu={handleContextMenu} className={styles.container}>

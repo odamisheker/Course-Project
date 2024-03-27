@@ -1,13 +1,16 @@
 import { useCallback, useContext, useState } from "react";
-import { UserContext } from "../UserContextProvider";
+import { UserContext } from "../context/UserContextProvider";
 import Message from "../Message/Message";
 import styles from "./WindowChat.module.css";
 import InputMessage from "../InputMessage/InputMessage";
 import ChatToolBar from "../ChatToolBar/ChatToolBar";
+import { ChatContext } from "../context/ChatContextProvider";
 
 export default function WindowChat() {
-  const [errors, setErrors] = useState(null);
+  // const [errors, setErrors] = useState(null);
   const [messages, setMessages] = useState([]);
+
+  const [message, setMessage] = useState({ text: "" });
 
   /*
   TODO: load messanges 
@@ -16,6 +19,13 @@ export default function WindowChat() {
   */
 
   const { id } = useContext(UserContext);
+  const { chatId } = useContext(ChatContext);
+
+  const handleEdit = (data) => {
+    setMessage(data);
+  };
+
+  const handleDelete = () => {};
 
   const handleSend = useCallback((newMessage) => {
     //  post
@@ -29,12 +39,25 @@ export default function WindowChat() {
       <div className={styles.wrapper}>
         <div className={styles.chat}>
           <ChatToolBar />
-          <div className={styles.messages}>
-            {messages.map((m, i) => (
-              <Message key={i} data={m} />
-            ))}
-          </div>
-          <InputMessage onSend={handleSend} />
+          {chatId && (
+            <div className={styles.messages}>
+              {messages.map((m, i) => (
+                <Message
+                  key={i}
+                  data={m}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              ))}
+            </div>
+          )}
+          {chatId && (
+            <InputMessage
+              message={message}
+              onMessageChange={setMessage}
+              onSend={handleSend}
+            />
+          )}
         </div>
       </div>
     </div>

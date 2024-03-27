@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "./UserContextProvider";
+import { UserContext } from "./context/UserContextProvider";
 import { Navigate } from "react-router-dom";
 
 export default function RequireChat({ children }) {
