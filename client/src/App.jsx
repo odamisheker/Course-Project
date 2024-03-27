@@ -4,12 +4,12 @@ import Login from "./routes/Login/Login";
 import SignUp from "./routes/SignUp/SignUp";
 import EnterChat from "./routes/EnterChat/EnterChat";
 import Home from "./routes/Home";
-import UserContextProvider from "./components/UserContextProvider";
+import UserContextProvider from "./components/context/UserContextProvider";
 import Chat from "./routes/Chat/Chat";
 import RequireAuth from "./components/RequireAuth";
 import RequireChat from "./components/RequireChat";
 import Layout from "./routes/Layout";
-import ChatContextProvider from "./components/ChatContextProvider";
+import ChatContextProvider from "./components/context/ChatContextProvider";
 
 function App() {
   const router = createBrowserRouter([

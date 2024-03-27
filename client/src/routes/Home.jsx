@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../components/UserContextProvider";
+import { UserContext } from "../components/context/UserContextProvider";
 
 export default function Home() {
   const [id, setId] = useState("");

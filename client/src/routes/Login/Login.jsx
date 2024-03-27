@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../components/UserContextProvider";
+import { UserContext } from "../../components/context/UserContextProvider";
 import styles from "./Login.module.css";
 
 export default function Login() {

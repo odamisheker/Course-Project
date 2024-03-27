@@ -2,7 +2,7 @@
 
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../components/UserContextProvider";
+import { UserContext } from "../../components/context/UserContextProvider";
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
 
