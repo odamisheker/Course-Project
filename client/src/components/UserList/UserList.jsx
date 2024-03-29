@@ -1,4 +1,5 @@
 import User from "../User/User";
+import chats from "../../DB";
 
 export default function UserList({ users }) {
   //TODO onClick -> changeId in Context => change WindowChat

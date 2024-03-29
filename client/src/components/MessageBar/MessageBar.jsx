@@ -1,7 +1,9 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import ToolBar from "../ToolBar/ToolBar";
 import UserList from "../UserList/UserList";
 import styles from "./MessageBar.module.css";
+import chats from "../../DB";
+import { UserContext } from "../context/UserContextProvider";
 
 const searchFilter = (arr, term) =>
   arr.filter((item) =>
@@ -9,9 +11,10 @@ const searchFilter = (arr, term) =>
   );
 
 export default function MessageBar() {
-  //TODO SearchBar & UserList
+  const { user } = useContext(UserContext);
 
-  const users = ["egor", "Dalv", "nekit", "tim timkin", "dranik"];
+  //TODO SearchBar & UserList
+  const users = chats.filter((i) => i.userId == user).map((i) => i.id);
 
   const [sortText, setSortText] = useState("");
 
