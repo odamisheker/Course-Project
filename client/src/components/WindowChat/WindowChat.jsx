@@ -5,9 +5,9 @@ import styles from "./WindowChat.module.css";
 import InputMessage from "../InputMessage/InputMessage";
 import ChatToolBar from "../ChatToolBar/ChatToolBar";
 import { ChatContext } from "../context/ChatContextProvider";
-import chats from "../../DB";
+//import chats from "../../DB";
 
-export default function WindowChat({ messages }) {
+export default function WindowChat({ messages, onSend }) {
   const { user } = useContext(UserContext);
   const { chatId } = useContext(ChatContext);
   // const [errors, setErrors] = useState(null);
@@ -28,7 +28,7 @@ export default function WindowChat({ messages }) {
     //  post
     //  output on screen
 
-    setMessages((curMessanges) => [...curMessanges, newMessage]);
+    onSend((curMessanges) => [...curMessanges, newMessage]);
   }, []);
 
   return (

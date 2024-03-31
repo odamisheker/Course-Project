@@ -6,7 +6,7 @@ const InputMessage = ({ message, onMessageChange, onSend }) => {
   //TODO эмоджи, файлы , фото ,  видео, гс
   // может даже тут отправлять на сервер сообщение, но хз
 
-  const { id } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   //const [message, setMessage] = useState("");
 
@@ -28,7 +28,7 @@ const InputMessage = ({ message, onMessageChange, onSend }) => {
       const newMessage = {
         text: message.text.trim(),
         time: Date.now(),
-        username: id,
+        username: user,
       };
       onSend(newMessage);
     }

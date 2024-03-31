@@ -4,6 +4,7 @@ import UserList from "../UserList/UserList";
 import styles from "./MessageBar.module.css";
 import chats from "../../DB";
 import { UserContext } from "../context/UserContextProvider";
+import Settings from "../Settings/Settings";
 
 const searchFilter = (arr, term) =>
   arr.filter((item) =>
@@ -22,10 +23,16 @@ export default function MessageBar({ users }) {
     [sortText, users]
   );
 
+  const [isSettingsOn, setSettingsOn] = useState(false);
+
   return (
     <div className={styles.main}>
-      <ToolBar setSortText={setSortText} />
-      <UserList users={usersToView} className={styles.userName} />
+      <ToolBar setSortText={setSortText} onOpen={setSettingsOn} />
+      {!isSettingsOn ? (
+        <UserList users={usersToView} className={styles.userName} />
+      ) : (
+        <Settings onClose={setSettingsOn} />
+      )}
     </div>
   );
 }

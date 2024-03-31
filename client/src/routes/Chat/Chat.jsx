@@ -5,12 +5,19 @@ import styles from "./Chat.module.css";
 import { ChatContext } from "../../components/context/ChatContextProvider";
 import chats from "../../DB";
 import { UserContext } from "../../components/context/UserContextProvider";
+import { useLoaderData } from "react-router-dom";
+
+// export const loader = async () => {
+//   return { chats };
+// };
 
 export default function Chat() {
   /*
     TODO
         load chats, toolbar, another component for person from chats
     */
+  //  const {chats} = useLoaderData()
+
   const { chatId } = useContext(ChatContext);
 
   const { user } = useContext(UserContext);
@@ -28,7 +35,11 @@ export default function Chat() {
     <div className={styles.main}>
       <MessageBar className={styles.messageBar} users={users} />
       {(chatId && (
-        <WindowChat className={styles.windowChat} messages={messages} />
+        <WindowChat
+          className={styles.windowChat}
+          messages={messages}
+          onSend={setMessages}
+        />
       )) || <h1 className={styles.welcome}>Welcome to Session</h1>}
     </div>
   );
