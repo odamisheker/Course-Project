@@ -3,7 +3,7 @@ import styles from "./User.module.css";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import { ChatContext } from "../context/ChatContextProvider";
 
-const User = ({ name }) => {
+const User = ({ name, lastMessage }) => {
   const { changeChatId } = useContext(ChatContext);
 
   return (
@@ -12,7 +12,7 @@ const User = ({ name }) => {
         <div className={styles.userPhoto}>Photo</div> {/*<img> */}
         <div className={styles.container}>
           <p className={styles.userName}>{name}</p>
-          <p className={styles.message}>lastMessage</p>
+          <p className={styles.message}>{lastMessage}</p>
         </div>
       </div>
       <div className={styles.id}>ID:123123</div>

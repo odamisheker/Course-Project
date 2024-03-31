@@ -34,11 +34,13 @@ export default function WindowChat({ messages, onSend }) {
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
-        <div className={styles.chat}>
-          <ChatToolBar />
-          {chatId && (
-            <div className={styles.messages}>
-              {messages.map((m, i) => (
+        <ChatToolBar />
+        {chatId && (
+          <div className={styles.messages}>
+            {messages
+              .slice()
+              .reverse()
+              .map((m, i) => (
                 <Message
                   key={i}
                   data={m}
@@ -46,16 +48,15 @@ export default function WindowChat({ messages, onSend }) {
                   onDelete={handleDelete}
                 />
               ))}
-            </div>
-          )}
-          {chatId && (
-            <InputMessage
-              message={message}
-              onMessageChange={setMessage}
-              onSend={handleSend}
-            />
-          )}
-        </div>
+          </div>
+        )}
+        {chatId && (
+          <InputMessage
+            message={message}
+            onMessageChange={setMessage}
+            onSend={handleSend}
+          />
+        )}
       </div>
     </div>
   );

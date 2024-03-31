@@ -21,7 +21,6 @@ export default function Chat() {
   const { chatId } = useContext(ChatContext);
 
   const { user } = useContext(UserContext);
-  const users = chats.filter((i) => i.userId == user).map((i) => i.id);
 
   const [messages, setMessages] = useState([]);
 
@@ -33,7 +32,7 @@ export default function Chat() {
 
   return (
     <div className={styles.main}>
-      <MessageBar className={styles.messageBar} users={users} />
+      <MessageBar className={styles.messageBar} chats={chats} />
       {(chatId && (
         <WindowChat
           className={styles.windowChat}

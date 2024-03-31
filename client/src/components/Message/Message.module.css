@@ -1,18 +1,23 @@
-.container {
-  background-color: #545454;
-  border-radius: 8px;
-  margin-bottom: 10px;
+.main {
+  max-width: 90%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
-
 .message {
   display: flex;
   align-items: center;
 
   padding: 10px;
-  max-width: 70%;
-  /* word-wrap: break-word; */
-}
 
+  background-color: #545454;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  color: #fff; /* Цвет текста сообщения */
+}
 .time {
   font-size: 12px;
   color: #999;

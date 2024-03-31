@@ -26,7 +26,7 @@ function Message({ onDelete, onEdit, data }) {
   const [modalActive, setModalActive] = useState(false);
 
   return (
-    <>
+    <div className={styles.main}>
       <ContextMenu
         active={menuActive}
         setActive={setMenuActive}
@@ -58,18 +58,16 @@ function Message({ onDelete, onEdit, data }) {
         </p>
         <p className={styles.menuItem}>Delete for all</p>
       </Modal>
-      <div onContextMenu={handleContextMenu} className={styles.container}>
-        <div className={styles.message}>
-          <p>{text}</p>
-          <p className={styles.time}>
-            {new Date(time).toLocaleString(undefined, {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </p>
-        </div>
+      <div className={styles.message} onContextMenu={handleContextMenu}>
+        <p className={styles.content}>{text}</p>
+        <p className={styles.time}>
+          {new Date(time).toLocaleString(undefined, {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
       </div>
-    </>
+    </div>
   );
 }
 

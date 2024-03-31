@@ -8,12 +8,17 @@
   height: 40px;
   width: 73%;
 
+  max-width: 73%;
+
   border: 1px solid black;
   border-radius: 5px;
 
   font-size: 1rem;
 
   padding-left: 5px;
+
+  word-wrap: break-word; /* Для поддержки старых браузеров */
+  overflow-wrap: break-word;
 
   transition: all 100ms ease;
 }
