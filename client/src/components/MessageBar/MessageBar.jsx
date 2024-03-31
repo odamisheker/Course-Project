@@ -10,11 +10,10 @@ const searchFilter = (arr, term) =>
     item.trim().toLowerCase().includes(term.trim().toLowerCase())
   );
 
-export default function MessageBar() {
-  const { user } = useContext(UserContext);
+export default function MessageBar({ users }) {
+  //const { user } = useContext(UserContext);
 
   //TODO SearchBar & UserList
-  const users = chats.filter((i) => i.userId == user).map((i) => i.id);
 
   const [sortText, setSortText] = useState("");
 

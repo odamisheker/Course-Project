@@ -1,14 +1,16 @@
 import "./App.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import Login from "./routes/Login/Login";
 import SignUp from "./routes/SignUp/SignUp";
 import EnterChat from "./routes/EnterChat/EnterChat";
-import Home from "./routes/Home";
 import UserContextProvider from "./components/context/UserContextProvider";
 import Chat from "./routes/Chat/Chat";
 import RequireAuth from "./components/RequireAuth";
 import RequireChat from "./components/RequireChat";
-import Layout from "./routes/Layout";
 import ChatContextProvider from "./components/context/ChatContextProvider";
 
 function App() {
@@ -27,27 +29,24 @@ function App() {
     },
     {
       path: "/",
-      element: <Layout />,
-      children: [
-        // {
-        //   path: "/home",
-        //   element: (
-        //     <RequireAuth>
-        //       <Home />
-        //     </RequireAuth>
-        //   ),
-        // },
-        {
-          path: "/chat",
-          element: (
-            <RequireAuth>
-              <ChatContextProvider>
-                <Chat />
-              </ChatContextProvider>
-            </RequireAuth>
-          ),
-        },
-      ],
+      element: <Navigate to="/chat" replace />,
+      errorElement: <h1>404040404</h1>,
+    },
+    {
+      path: "/chat",
+      element: (
+        <RequireAuth>
+          <ChatContextProvider>
+            <Chat />
+          </ChatContextProvider>
+        </RequireAuth>
+      ),
+      // children: [
+      //   {
+      //     path: "/chat/:id",
+      //     element
+      //   },
+      // ],
     },
   ]);
   return (

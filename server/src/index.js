@@ -20,3 +20,7 @@ const start = async () => {
 };
 
 start();
+
+app.get("/", (req, res) => {
+  res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" }); //Строка 10
+});

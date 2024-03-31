@@ -16,6 +16,7 @@ export default function Home() {
     changeId(id);
     navigate("/chat");
   };
+
   return (
     <>
       <h2>Hello, {user}!</h2>
@@ -26,6 +27,7 @@ export default function Home() {
       />
       <button onClick={handleGo}>Go to chat!</button>
       <button>Create chat!</button>
+      <div>{a}</div>
     </>
   );
 }
