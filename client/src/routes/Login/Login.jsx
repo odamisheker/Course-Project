@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
@@ -26,6 +27,20 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       User.parse({ password });
+
+      // ! проверить правильность написания запроса
+      axios
+        .post("http://localhost:8000/auth/login", {
+          username: name,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
       changeUser(name);
       navigate("/chat");
     } catch (err) {

@@ -1,6 +1,6 @@
-// ! work for slave Danik
-
 import { useContext, useState } from "react";
+
+import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
@@ -30,8 +30,23 @@ export default function SignUp() {
         setErrors("Passwords are not the same");
         return;
       }
+
+      // ! проверить правильность написания запроса
+      axios
+        .post("http://localhost:8000/auth/registration", {
+          username: name,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
       changeUser(name);
-      navigate("/home");
+      // ! navigate "/home"
+      navigate("/login");
       setErrors(null);
     } catch (err) {
       setErrors(err?.errors?.map((error) => error.message).join(", "));
