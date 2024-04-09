@@ -25,6 +25,7 @@ export default function WindowChat({ messages, onSend }) {
   const handleDelete = () => {};
 
   const handleSend = useCallback((newMessage) => {
+    //  socket send
     //  post
     //  output on screen
 

@@ -1,86 +1,98 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
 
 .main {
-  display: flex;
   height: 100vh;
   width: 100vw;
+
   background-color: #565656;
+
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Ubuntu", sans-serif;
   flex-direction: column;
-}
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  font-family: "Ubuntu", sans-serif;
+  color: #fff;
 }
 
 .title {
-  color: #ffffff;
+  color: #fff;
+
   font-size: 6rem;
   text-decoration: line-through;
-  text-decoration-color: black;
+}
+
+.wrapper {
+  width: 40%;
+  height: 40%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
 }
 
 .desc {
   opacity: 0.5;
-  font-size: 1rem;
-  color: #ffffff;
-  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #fff;
   margin-right: auto;
 }
 
 .block {
-  width: 30rem;
-  height: 18rem;
+  width: 100%;
+  height: 100%;
+
   background-color: #d9d9d9;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 15px;
-  /* box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.678); */
+  justify-content: center;
+  gap: 1rem;
+
+  border-radius: 10px;
 }
 
 .input {
-  margin-top: 2rem;
-  border-radius: 40px;
+  width: 70%;
+  height: 17%;
+
+  border-radius: 30px;
   border: 0;
+
   background-color: #414141;
-  color: #ffffff;
   padding-left: 0.7rem;
-  width: 17rem;
-  height: 2.5rem;
+  color: #fff;
   font-size: 1.2rem;
 }
 
 .connect {
-  margin-top: 2rem;
+  width: 70%;
+  height: 20%;
+
+  margin-top: 0.5rem;
+
   font-size: 1.2rem;
-  width: 10rem;
-  height: 2.5rem;
   background-color: #414141;
-  color: #ffffff;
+  color: #fff;
+
   border: 0;
   border-radius: 40px;
+
   cursor: pointer;
+
   transition: 100ms ease;
 }
 
 .connect:hover {
-  /* width: 10.5rem;
-  height: 3rem;
-  font-size: 1.5rem; */
   background-color: #555454;
-  color: #ffffff;
 }
 
 .navigate {
-  text-decoration: none;
-  color: #ffffff;
   font-size: 1rem;
-  margin-top: 1rem;
+  cursor: pointer;
+
   opacity: 0.5;
 }
 

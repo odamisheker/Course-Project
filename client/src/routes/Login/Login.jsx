@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
 
 import styles from "./Login.module.css";
-import { User } from "../../utils/validation";
+//import { User } from "../../utils/validation";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -21,31 +21,26 @@ export default function Login() {
     }
   };
 
-  //  fetch...
-  //  validate user?
-  // if true go home (fetch)
   const handleLogin = async () => {
-    try {
-      User.parse({ password });
-
-      // ! проверить правильность написания запроса
-      axios
-        .post("http://localhost:8000/auth/login", {
-          username: name,
-          password: password,
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-
-      changeUser(name);
-      navigate("/chat");
-    } catch (err) {
-      setErrors(err?.errors?.map((error) => error.message).join(", "));
-    }
+    // try {
+    //   User.parse({ password });
+    // } catch (err) {
+    //   setErrors(err?.errors?.map((error) => error.message).join(", "));
+    // }
+    if (name.trim() == "" || password.trim() == "") return;
+    // ! проверить правильность написания запроса
+    axios
+      .post("http://localhost:8000/auth/login", {
+        username: name,
+        password: password,
+      })
+      .then((res) => {
+        changeUser(name);
+        navigate("/chat");
+      })
+      .catch((e) => {
+        setErrors(e.response.data.message);
+      });
   };
 
   return (
@@ -82,9 +77,9 @@ export default function Login() {
             </div>
           )}
         </div>
-        <Link to="/signup" className={styles.navigate}>
+        <p onClick={() => navigate("/signup")} className={styles.navigate}>
           Don't have account - sign up
-        </Link>
+        </p>
       </div>
     </div>
   );

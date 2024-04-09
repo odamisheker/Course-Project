@@ -1,10 +1,11 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import ToolBar from "../ToolBar/ToolBar";
 import UserList from "../UserList/UserList";
 import styles from "./MessageBar.module.css";
 import chats from "../../DB";
 import { UserContext } from "../context/UserContextProvider";
 import Settings from "../Settings/Settings";
+import axios from "axios";
 
 const searchFilter = (arr, term) =>
   arr.filter((item) =>
@@ -23,6 +24,16 @@ export default function MessageBar({ chats }) {
   //   () => searchFilter(users, sortText),
   //   [sortText, users]
   // );
+
+  // useEffect(() => {
+  //   axios("/users/id") // чето типо такого /users/${sortText}
+  //     .then((r) =>
+  //       //добавление пользователей найденных по подстроке
+  //       // в массив usersToView
+  //       console.log(r)
+  //     )
+  //     .catch((e) => console.log(e));
+  // }, [sortText]);
 
   const [isSettingsOn, setSettingsOn] = useState(false);
 

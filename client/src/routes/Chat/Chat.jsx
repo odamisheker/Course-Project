@@ -6,10 +6,16 @@ import { ChatContext } from "../../components/context/ChatContextProvider";
 import chats from "../../DB";
 import { UserContext } from "../../components/context/UserContextProvider";
 import { useLoaderData } from "react-router-dom";
+import axios from "axios";
 
-// export const loader = async () => {
-//   return { chats };
-// };
+export const loader = async () => {
+  // axios("/id/chats") //!хз какой url
+  //   .then((r) => {
+  //     console.log(r);
+  //   })
+  //   .catch((e) => console.log(e));
+  return { chats };
+};
 
 export default function Chat() {
   /*
