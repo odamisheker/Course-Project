@@ -13,6 +13,7 @@ app.use(cors());
 app.use("/auth", authRouter);
 
 // ! что с этим не так? или все норм
+// а не надо ли сюда добавить путь?
 app.use(searchRouter);
 
 const start = async () => {

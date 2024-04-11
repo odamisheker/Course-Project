@@ -1,6 +1,6 @@
 const chats = [
   {
-    id: "Даник",
+    username: "Даник",
     userId: "egor",
     messages: [
       {
@@ -11,7 +11,7 @@ const chats = [
     ],
   },
   {
-    id: "Далв",
+    username: "Далв",
     userId: "egor",
     messages: [
       {
@@ -27,7 +27,7 @@ const chats = [
     ],
   },
   {
-    id: "Некит",
+    username: "Некит",
     userId: "egor",
     messages: [],
   },
