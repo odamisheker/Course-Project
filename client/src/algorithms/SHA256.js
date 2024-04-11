@@ -1,4 +1,6 @@
-function SHA256(password, salt) {
+import {generateSalt} from './Salt'
+
+export function SHA256(password, salt) {
   const chrsz = 8;
   const hexcase = 0;
 
@@ -72,10 +74,7 @@ function SHA256(password, salt) {
         if (j < 16) W[j] = m[j + i];
         else
           W[j] = safe_add(
-            safe_add(
-              safe_add(Gamma1(W[j - 2]), W[j - 7]),
-              Gamma0(W[j - 15])
-            ),
+            safe_add(safe_add(Gamma1(W[j - 2]), W[j - 7]), Gamma0(W[j - 15])),
             W[j - 16]
           );
 
@@ -149,10 +148,13 @@ function SHA256(password, salt) {
     return str;
   }
 
-  password = password + salt;
+  password = password.concat(salt);
 
   password = Utf8Encode(password);
   return binb2hex(SHA256Core(str2binb(password), password.length * chrsz));
 }
 
-console.log(SHA256("password"));
+const salt = generateSalt();
+const password = 'qwerty123I';
+const hashedPassword = SHA256(password, salt);
+console.log(`salt: ${salt}, password: ${password}, hashedPassword: ${hashedPassword}`);

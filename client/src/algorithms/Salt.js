@@ -1,10 +1,8 @@
-const crypto = require("crypto");
+import CryptoJS from "crypto-js";
 
-function generateSalt() {
-    let salt = "";
-    salt = crypto.randomBytes(32, (err, buf) => {
-        if (err) throw err;
-        console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
-    })
-    return salt;
+export function generateSalt() {
+    const salt = CryptoJS.lib.WordArray.random(32);
+    const saltHex = salt.toString(CryptoJS.enc.Hex);
+    console.log(`${saltHex.length / 2} bytes of random data: ${saltHex}`);
+    return saltHex;
 }
