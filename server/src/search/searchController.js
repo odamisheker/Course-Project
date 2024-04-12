@@ -4,7 +4,7 @@ class searchController {
   async findByUsername(req, res) {
     try {
       const { searchInput } = req.body;
-      const searchedUser = await User.findOne({ username: `${searchInput}` });
+      const searchedUser = await User.findOne({ username: searchInput });
       if (!searchedUser) {
         return res
           .status(400)
