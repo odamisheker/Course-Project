@@ -10,6 +10,7 @@ class searchController {
           .status(400)
           .json({ message: "User with this name not found." });
       }
+      //! исправить немедленно
       return res.json(searchedUser);
     } catch (e) {
       console.log(e);

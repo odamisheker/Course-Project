@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const authRouter = require("./auth/authRouter");
 const searchRouter = require("./search/searchRouter");
+const chatRouter = require("./chat/chatRouter");
 const PORT = process.env.PORT || 8000;
 
 const app = express();
@@ -15,6 +16,7 @@ app.use("/auth", authRouter);
 // ! что с этим не так? или все норм
 // а не надо ли сюда добавить путь?
 app.use(searchRouter);
+app.use(chatRouter);
 
 const start = async () => {
   try {

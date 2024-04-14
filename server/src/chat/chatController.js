@@ -3,27 +3,44 @@ const Chat = require("./models/Chat");
 const Message = require("./models/Message");
 
 class chatController {
-  async create(req, res) {
+  async getMessages(req, res) {
     try {
-      req.body = { id_1, id_2, messageInput: {} };
+      const { id_1, id_2 } = req.body;
+
+      const chat = await Chat.findOne({ users: { $all: [id_1, id_2] } });
+      if (!chat) {
+        return res.json({ message: "Chat not exists." });
+      }
+
+      return res
+        .status(200)
+        .json({ chatID: chat.chatID, messages: chat.messages });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ message: "Get messages error." });
+    }
+  }
+
+  async createChat(req, res) {
+    try {
+      const { id_1, id_2, messageInput } = req.body;
       const user1 = await User.findOne({ _id: id_1 });
       const user2 = await User.findOne({ _id: id_2 });
-
-      const chat = new Chat({
-        users: [user1._id, user2._id],
-        // ! chatID: // for Egor
-        created: Date.now(),
-        messages: [], // * мы не можем сюда передать сообщение, так как оно еще не создано, не так ли?
-      });
 
       const message = new Message({
         author: user1._id,
         content: messageInput,
         date: Date.now(),
         lastUploaded: Date.now(),
-        users: chat.users,
+        users: [user1._id, user2._id],
       });
-      chat.messages.push(message);
+
+      const chat = new Chat({
+        users: [user1._id, user2._id],
+        chatID: "11111111", // ! for Egor
+        created: Date.now(),
+        messages: [message],
+      });
 
       await message.save();
       await chat.save();
@@ -31,13 +48,13 @@ class chatController {
       return res.json({ message: "Chat successfully created!" });
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: "Chat creation error." });
+      return res.status(400).json({ message: "Chat creation error." });
     }
   }
 
   async sendMessage(req, res) {
     try {
-      req.body = { user_id, chat_id, messageInput };
+      const { user_id, chat_id, messageInput } = req.body;
       const user = await User.findOne({ _id: user_id });
       const chat = await Chat.findOne({ _id: chat_id });
 
@@ -51,6 +68,8 @@ class chatController {
       chat.messages.push(message);
 
       await message.save();
+      await chat.save();
+      // * update chat?
 
       return res.json({ message: "Message successfuly sent!" });
     } catch (e) {
@@ -58,6 +77,69 @@ class chatController {
       return res.status(400).json({ message: "Sending error." });
     }
   }
+
+  async deleteMessageForMe(req, res) {
+    try {
+      const { user_id, chat_id, message_id } = req.body;
+      const user = await User.findOne({ _id: user_id });
+      const chat = await Chat.findOne({ _id: chat_id });
+      const message = await Message.findOne({ _id: message_id });
+
+      message.users.splice(message.users.indexOf(user_id), 1);
+      await message.save();
+      await chat.save();
+
+      return res.json({ message: "Message successfully deleted for you!" });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ message: "Delete error." });
+    }
+  }
+
+  async deleteMesssageForAll(req, res) {
+    try {
+      const { chat_id, message_id } = req.body;
+      const chat = await Chat.findOne({ _id: chat_id });
+
+      await Message.deleteOne({ _id: message_id });
+
+      await chat.save();
+
+      return res.json({ message: "Message successfully deleted for all!" });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ message: "Delete error." });
+    }
+  }
+
+  async editMessage(req, res) {
+    try {
+      const { chat_id, message_id, newContent } = req.body;
+      const chat = await Chat.findOne({ _id: chat_id });
+      const message = await Message.findOne({ _id: message_id });
+
+      message.content = newContent;
+      message.lastUploaded = Date.now();
+      await message.save();
+      await chat.save();
+
+      return res.json({ message: "Message successfully edited!" });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ message: "Edit error." });
+    }
+  }
+
+  async deleteChat(req, res) {
+    try {
+      const {} = req.body;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  // remove chat
+  // group chat
 }
 
 module.exports = new chatController();
