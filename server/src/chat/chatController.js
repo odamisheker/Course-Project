@@ -1,6 +1,7 @@
 const User = require("../auth/models/User");
 const Chat = require("./models/Chat");
 const Message = require("./models/Message");
+const generateCode = require("../algorithms/generateCode")
 
 class chatController {
   async getMessages(req, res) {
@@ -37,7 +38,7 @@ class chatController {
 
       const chat = new Chat({
         users: [user1._id, user2._id],
-        chatID: "11111111", // ! for Egor
+        chatID: generateCode(),
         created: Date.now(),
         messages: [message],
       });
