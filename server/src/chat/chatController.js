@@ -1,10 +1,11 @@
 const User = require("../auth/models/User");
 const Chat = require("./models/Chat");
 const Message = require("./models/Message");
-const generateCode = require("../algorithms/generateCode")
+const generateCode = require("../algorithms/generateCode");
 
 class chatController {
   async getMessages(req, res) {
+    // * возможно не нужно
     try {
       const { id_1, id_2 } = req.body;
 
@@ -131,15 +132,42 @@ class chatController {
     }
   }
 
-  async deleteChat(req, res) {
+  async getChat(req, res) {
     try {
-      const {} = req.body;
+      const { id_1, id_2 } = req.body;
+      const chat = await Chat.findOne({ users: { $all: [id_1, id_2] } });
+
+      if (!chat) {
+        return res.json({ message: "Chat not exists." });
+      }
+
+      return res.json({ chatID: chat.chatID });
     } catch (e) {
       console.log(e);
+      return res.status(400).json({ message: "Get chat error." });
     }
   }
 
-  // remove chat
+  async deleteChat(req, res) {
+    try {
+      const { chat_id } = req.body;
+      const chat = await Chat.findOne({ chatID: chat_id });
+
+      if (!chat) {
+        return res.json({
+          message: "Chat has been already deleted or not exists.",
+        });
+      }
+
+      chat.deleteOne();
+
+      return res.json({ message: "Chat successfully deleted." });
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ meessage: "Chat delete error." });
+    }
+  }
+
   // group chat
 }
 
