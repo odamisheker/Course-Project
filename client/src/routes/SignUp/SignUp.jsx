@@ -7,7 +7,7 @@ import { UserContext } from "../../components/context/UserContextProvider";
 
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
-import { SHA256 } from "../../algorithms/SHA256";
+import { SHA256 } from "../../algorithms/SHA256/sha256";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -104,6 +104,5 @@ export default function SignUp() {
       </div>
     </div>
   );
-
-  console.log(SHA256())
+  console.log(SHA256());
 }
