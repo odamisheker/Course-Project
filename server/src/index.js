@@ -15,8 +15,8 @@ app.use("/auth", authRouter);
 
 // ! что с этим не так? или все норм
 // а не надо ли сюда добавить путь?
-app.use(searchRouter);
-app.use(chatRouter);
+app.use("/search", searchRouter);
+app.use("/chat", chatRouter);
 
 const start = async () => {
   try {

@@ -23,7 +23,7 @@ class authController {
           errors,
         });
       }
-      const { username, password } = req.body;
+      const { username, password, publicname } = req.body;
       const candidate = await User.findOne({ username });
       if (candidate) {
         return res
@@ -34,6 +34,7 @@ class authController {
       const userRole = await Role.findOne({ value: "USER" });
       const user = new User({
         username,
+        publicname,
         password: hashPassword,
         roles: [userRole.value],
       });
@@ -59,7 +60,7 @@ class authController {
         return res.status(400).json({ message: "Incorrect password." });
       }
       const token = generateAccessToken(user._id, user.roles);
-      return res.json({ token });
+      return res.json({ token, publicname: user.publicname });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Login error." });

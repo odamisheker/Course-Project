@@ -4,14 +4,18 @@ class searchController {
   async findByUsername(req, res) {
     try {
       const { searchInput } = req.body;
-      const searchedUser = await User.findOne({ username: searchInput });
+
+      // ! переписать, чтобы отдавало массив пользователей
+
+      const searchedUser = await User.findOne({ publicname: searchInput });
+
       if (!searchedUser) {
         return res
           .status(400)
           .json({ message: "User with this name not found." });
       }
-      //! исправить немедленно
-      return res.json(searchedUser);
+
+      return res.json([{ publicname: searchedUser.publicname }]);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Search error." });
