@@ -7,7 +7,7 @@ class searchController {
 
       // ! переписать, чтобы отдавало массив пользователей
 
-      const searchedUser = await User.findOne({ publicname: searchInput });
+      const searchedUser = await User.findOne({ username: searchInput });
 
       if (!searchedUser) {
         return res
@@ -15,7 +15,7 @@ class searchController {
           .json({ message: "User with this name not found." });
       }
 
-      return res.json([{ publicname: searchedUser.publicname }]);
+      return res.json([{ username: searchedUser.username }]);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Search error." });
