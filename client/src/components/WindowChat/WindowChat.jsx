@@ -1,63 +1,72 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { UserContext } from "../context/UserContextProvider";
 import Message from "../Message/Message";
 import styles from "./WindowChat.module.css";
 import InputMessage from "../InputMessage/InputMessage";
 import ChatToolBar from "../ChatToolBar/ChatToolBar";
 import { ChatContext } from "../context/ChatContextProvider";
-//import chats from "../../DB";
+import axios from "axios";
 
-export default function WindowChat({ messages, onSend }) {
+export default function WindowChat() {
   const { user } = useContext(UserContext);
   const { chatId } = useContext(ChatContext);
-  // const [errors, setErrors] = useState(null);
 
-  const [message, setMessage] = useState({ text: "" });
+  //const [message, setMessage] = useState({ text: "" });
 
-  /*
-  TODO: хранить сообщение как объект(для хранения текста, времени и тд)
-  */
-
-  const handleEdit = (data) => {
-    setMessage(data);
-  };
-
-  const handleDelete = () => {};
+  //TODO: {messages, sendMessage, removeMessage} = useChat(chatID)
 
   const handleSend = useCallback((newMessage) => {
+    //*create Chat
+    // axios
+    //   .post("http://localhost:8000/...", {
+    //     id_1: user,
+    //     id_2: chatId,
+    //     messageInput: message,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.response.data);
+    //   });
+    //* send message
+    // axios
+    //   .post("http://localhost:8000/", {
+    //     /*newMessage Object*/
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.response.data);
+    //   });
     //  socket send
-    //  post
     //  output on screen
-
-    onSend((curMessanges) => [...curMessanges, newMessage]);
+    //onSend((curMessanges) => [...curMessanges, newMessage]);
   }, []);
 
   return (
     <div className={styles.main}>
       <div className={styles.wrapper}>
         <ChatToolBar />
-        {chatId && (
-          <div className={styles.messages}>
-            {messages
-              .slice()
-              .reverse()
-              .map((m, i) => (
-                <Message
-                  key={i}
-                  data={m}
-                  onEdit={handleEdit}
-                  onDelete={handleDelete}
-                />
-              ))}
-          </div>
-        )}
-        {chatId && (
-          <InputMessage
-            message={message}
-            onMessageChange={setMessage}
-            onSend={handleSend}
-          />
-        )}
+        <div className={styles.messages}>
+          {messages
+            .slice()
+            .reverse()
+            .map((m, i) => (
+              <Message
+                key={i}
+                data={m}
+                // onEdit={handleEdit}
+                // onDelete={handleDelete}
+              />
+            ))}
+        </div>
+        <InputMessage
+          message={message}
+          onMessageChange={setMessage}
+          onSend={handleSend}
+        />
       </div>
     </div>
   );

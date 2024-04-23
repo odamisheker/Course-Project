@@ -3,12 +3,7 @@ import styles from "./InputMessage.module.css";
 import { UserContext } from "../context/UserContextProvider";
 
 const InputMessage = ({ message, onMessageChange, onSend }) => {
-  //TODO эмоджи, файлы , фото ,  видео, гс
-  // может даже тут отправлять на сервер сообщение, но хз
-
   const { user } = useContext(UserContext);
-
-  //const [message, setMessage] = useState("");
 
   //TODO найти что нибудь поприличнее этого , если есть конечно
   //Да нормтема че вы пацаны(((
@@ -23,15 +18,8 @@ const InputMessage = ({ message, onMessageChange, onSend }) => {
 
     if (!message.text.trim()) return;
 
-    if ("time" in message) {
-    } else {
-      const newMessage = {
-        text: message.text.trim(),
-        time: Date.now(),
-        username: user,
-      };
-      onSend(newMessage);
-    }
+    onSend(message.text.trim());
+
     onMessageChange({ text: "" });
   };
 

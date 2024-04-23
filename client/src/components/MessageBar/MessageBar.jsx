@@ -1,18 +1,11 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import ToolBar from "../ToolBar/ToolBar";
-import UserList from "../UserList/UserList";
+import User from "../User/User";
 import styles from "./MessageBar.module.css";
-import chats from "../../DB";
-import { UserContext } from "../context/UserContextProvider";
 import Settings from "../Settings/Settings";
+import { UserContext } from "../context/UserContextProvider";
 
 export default function MessageBar({ chats }) {
-  //const { user } = useContext(UserContext);
-
-  //TODO SearchBar & UserList
-
-  // const users = chats.filter((i) => i.userId == user).map((i) => i.id);
-
   const [users, setUsers] = useState([]);
 
   const [isSettingsOn, setSettingsOn] = useState(false);
@@ -21,9 +14,10 @@ export default function MessageBar({ chats }) {
     <div className={styles.main}>
       {!isSettingsOn ? (
         <div className={styles.wrapper}>
-          <ToolBar setUsers={setUsers} onOpen={setSettingsOn} />
-          <UserList users={users} className={styles.userName} />
-          {/* users={usersToView} */}
+          <ToolBar onUsersChange={setUsers} onOpen={setSettingsOn} />
+          {users.map((e, i) => (
+            <User key={i} user={e} />
+          ))}
         </div>
       ) : (
         <Settings onClose={setSettingsOn} />

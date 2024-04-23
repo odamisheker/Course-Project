@@ -31,11 +31,12 @@ export default function Login() {
     // ! проверить правильность написания запроса
     axios
       .post("http://localhost:8000/auth/login", {
-        username: name,
-        password: password,
+        username: name.trim(),
+        password: password.trim(),
       })
       .then((res) => {
-        changeUser(name);
+        //console.log(res.data.username);
+        changeUser(res.data.username);
         navigate("/chat");
       })
       .catch((e) => {

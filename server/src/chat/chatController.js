@@ -134,7 +134,7 @@ class chatController {
 
   async getChat(req, res) {
     try {
-      const { id_1, id_2 } = req.body;
+      const { id_1, id_2 } = req.body; //* change id_1 -> username1 и тд
       const chat = await Chat.findOne({ users: { $all: [id_1, id_2] } });
 
       if (!chat) {

@@ -7,7 +7,7 @@ const ChatToolBar = () => {
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <p className={styles.headText}>{chatId || "Welcome to SESSION"}</p>
+        <p className={styles.headText}>{chatId}</p>
         <p className={styles.extraText}>5 minutes again</p>
       </div>
     </div>

@@ -7,18 +7,18 @@ const searchFilter = (arr, term) =>
     item.trim().toLowerCase().includes(term.trim().toLowerCase())
   );
 
-export default function ToolBar({ setUsers, onOpen }) {
+export default function ToolBar({ onUsersChange, onOpen }) {
   //TODO button "Settings" and photo profile
 
   const handleSearch = (e) => {
     if (e.target.value == "") return;
     axios
-      .post("http://localhost:8000/search", { searchInput: e.target.value })
+      .post("http://localhost:8000/search/get", { searchInput: e.target.value })
       .then((r) => {
-        console.log(r.data);
-        setUsers([r.data]);
+        // console.log(r.data);
+        onUsersChange(r.data);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e.response.data.message));
   };
 
   return (

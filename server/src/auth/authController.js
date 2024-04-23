@@ -23,7 +23,7 @@ class authController {
           errors,
         });
       }
-      const { username, password, publicname } = req.body;
+      const { username, password } = req.body;
       const candidate = await User.findOne({ username });
       if (candidate) {
         return res

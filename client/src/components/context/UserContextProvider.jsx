@@ -4,13 +4,12 @@ export const UserContext = createContext(null);
 
 export default function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  //const [id, setId] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     const user = sessionStorage.getItem("user");
-    setUser(user);
+    // setUser(user);
     if (user) {
       setUser(user);
       setLoading(false);
