@@ -34,7 +34,7 @@ class authController {
       const userRole = await Role.findOne({ value: "USER" });
       const user = new User({
         username,
-        publicname,
+        // publicname,
         password: hashPassword,
         roles: [userRole.value],
       });
@@ -60,7 +60,7 @@ class authController {
         return res.status(400).json({ message: "Incorrect password." });
       }
       const token = generateAccessToken(user._id, user.roles);
-      return res.json({ token, publicname: user.publicname });
+      return res.json({ token, username: user.username });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Login error." });
