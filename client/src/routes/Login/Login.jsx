@@ -1,16 +1,14 @@
 import { useContext, useState } from "react";
 import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
 
 import styles from "./Login.module.css";
-//import { User } from "../../utils/validation";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
@@ -22,11 +20,6 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
-    // try {
-    //   User.parse({ password });
-    // } catch (err) {
-    //   setErrors(err?.errors?.map((error) => error.message).join(", "));
-    // }
     if (name.trim() == "" || password.trim() == "") return;
     // ! проверить правильность написания запроса
     axios
@@ -40,24 +33,23 @@ export default function Login() {
         navigate("/chat");
       })
       .catch((e) => {
-        setErrors(e.response.data.message);
+        setErrors((curErr) => [...curErr, e.response.data.message]);
       });
   };
 
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}>SESSION</h1>
       <div className={styles.wrapper}>
-        <div className={styles.desc}>Non-anonymous use:</div>
+        <h1 className={styles.title}>SESSION</h1>
         <div className={styles.block}>
           <input
-            placeholder="Login"
+            placeholder="login"
             className={styles.input}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            placeholder="Password"
+            placeholder="password"
             type="password"
             className={styles.input}
             value={password}
@@ -68,19 +60,16 @@ export default function Login() {
             onClick={handleLogin}
             onKeyUp={handleKeyPress}
           >
-            Connect
+            Sign In
           </button>
-          {errors && (
-            <div className={styles.error}>
-              {errors.split(",").map((error, index) => (
-                <div key={index}>{error}</div>
-              ))}
-            </div>
-          )}
+
+          <p onClick={() => navigate("/signup")} className={styles.navigate}>
+            don't have account - sign up
+          </p>
         </div>
-        <p onClick={() => navigate("/signup")} className={styles.navigate}>
-          Don't have account - sign up
-        </p>
+        <div className={styles.error}>
+          {"" || errors.map((error, index) => <div key={index}>{error}</div>)}
+        </div>
       </div>
     </div>
   );

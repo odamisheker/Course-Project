@@ -37,9 +37,9 @@ const User = ({ user: { username } }) => {
   return (
     <div className={styles.main} onClick={handleOpenChat}>
       <div className={styles.wrapper}>
-        <div className={styles.userPhoto}>Photo</div> {/*<img> */}
+        <div className={styles.avatar}></div> {/*<img> */}
         <div className={styles.container}>
-          <p className={styles.userName}>{username}</p>
+          <p className={styles.username}>{username}</p>
           {/* <p className={styles.message}>{lastMessage}</p> */}
         </div>
       </div>

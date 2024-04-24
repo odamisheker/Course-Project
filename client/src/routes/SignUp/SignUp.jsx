@@ -13,7 +13,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState("");
 
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
@@ -32,11 +32,10 @@ export default function SignUp() {
         return;
       }
     } catch (err) {
-      setErrors(err?.errors?.map((error) => error.message).join(", "));
+      setErrors(err?.errors?.map((error) => error.message).join(". "));
       return;
     }
 
-    // ! проверить правильность написания запроса
     axios
       .post("http://localhost:8000/auth/registration", {
         username: name,
@@ -55,19 +54,18 @@ export default function SignUp() {
 
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}>SESSION</h1>
       <div className={styles.wrapper}>
-        <div className={styles.desc}>Non-anonymous use:</div>
+        <h1 className={styles.title}>SESSION</h1>
         <div className={styles.block}>
           <input
-            placeholder="Login"
+            placeholder="login"
             className={styles.input}
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
           <input
-            placeholder="Password"
+            placeholder="password"
             type="password"
             className={styles.input}
             value={password}
@@ -75,7 +73,7 @@ export default function SignUp() {
             required
           />
           <input
-            placeholder="Repeat password"
+            placeholder="repeat password"
             type="password"
             className={styles.input}
             value={confirmPassword}
@@ -89,17 +87,11 @@ export default function SignUp() {
           >
             Sign Up
           </button>
-          {errors && (
-            <div className={styles.error}>
-              {errors.split(",").map((error, index) => (
-                <div key={index}>{error}</div>
-              ))}
-            </div>
-          )}
+          <p onClick={() => navigate("/login")} className={styles.navigate}>
+            Already have account?
+          </p>
         </div>
-        <p onClick={() => navigate("/login")} className={styles.navigate}>
-          Already have account?
-        </p>
+        <div className={styles.error}>{"" || errors}</div>
       </div>
     </div>
   );

@@ -9,7 +9,13 @@
   border-top: 1px solid grey;
   /* перенести границу в UserList и сделатьчтобы последний получал границу снизу */
 
+  cursor: pointer;
+
   padding: 5px;
+  transition: all 0.1s ease-in;
+}
+.main:hover {
+  background-color: rgb(247, 245, 245);
 }
 .wrapper {
   display: flex;
@@ -24,9 +30,15 @@
   justify-content: center;
   gap: 5px;
 }
-.userName {
-  font-weight: 600;
-  font-size: 1rem;
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ee5d5d;
+  border-radius: 50%;
+}
+.username {
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 .message {
   font-size: 0.8rem;

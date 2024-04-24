@@ -1,11 +1,6 @@
 import styles from "./ToolBar.module.css";
-import settingsIcon from "../../../public/settings.png";
+import settingsIcon from "../../../public/settings.svg";
 import axios from "axios";
-
-const searchFilter = (arr, term) =>
-  arr.filter((item) =>
-    item.trim().toLowerCase().includes(term.trim().toLowerCase())
-  );
 
 export default function ToolBar({ onUsersChange, onOpen }) {
   //TODO button "Settings" and photo profile
@@ -23,20 +18,17 @@ export default function ToolBar({ onUsersChange, onOpen }) {
 
   return (
     <div className={styles.main}>
-      <p>tvoe ebalo</p>
-      <p className={styles.settings} onClick={() => onOpen(true)}>
-        . . .
-      </p>
-      {/* <img
+      <div className={styles.avatar}></div>
+      <img
         className={styles.settings}
         onClick={() => onOpen(true)}
         src={settingsIcon}
         alt="settings"
-      /> */}
+      />
       <input
         onChange={handleSearch}
         //onFocus={handleSearch}
-        placeholder="Search"
+        placeholder="search"
         className={styles.input}
       />
     </div>

@@ -11,7 +11,7 @@ export default function Chat() {
     <div className={styles.main}>
       <MessageBar className={styles.messageBar} />
       {(chatId && <WindowChat className={styles.windowChat} />) || (
-        <h1 className={styles.welcome}>Welcome to Session</h1>
+        <h1 className={styles.welcome}>welcome to SESSION</h1>
       )}
     </div>
   );
