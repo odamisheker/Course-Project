@@ -75,7 +75,7 @@ export function generateKeyPair() {
   return {publicKey, privateKey};
 }
 
-// let k = calculations();
+// let k = generateKeyPair();
 // console.log(k.privateKey, '\n');
 // console.log(k.publicKey)
 

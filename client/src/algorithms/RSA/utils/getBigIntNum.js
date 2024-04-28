@@ -54,7 +54,8 @@ function fermatTest(n) {
   return true;
 }
 
-function modPow(base, exponent, modulus) {
+//* дихотомический алгоритм возведения в степень
+export function modPow(base, exponent, modulus) {
   if (modulus === 1n) return 0n;
   let result = 1n;
   base %= modulus;
@@ -68,7 +69,7 @@ function modPow(base, exponent, modulus) {
   return result;
 }
 
-export default function generatePrime() {
+export function generatePrime() {
   while (true) {
     let candidate = generateRandomNumber();
     if (!millerRabinTest(candidate)) {
