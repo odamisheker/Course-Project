@@ -15,6 +15,7 @@ export function decrypting() {
 
   function BigInt2String(bigIntMessage) {
     let strMessage = bigIntMessage.toString(16);
+<<<<<<< HEAD
     // Remove leading zeros necessary for even split
     strMessage = strMessage.padStart(Math.ceil(strMessage.length / 8) * 8, "0");
 
@@ -25,6 +26,16 @@ export function decrypting() {
       if (codePoint !== 0) {
         result += String.fromCodePoint(codePoint);
       }
+=======
+    strMessage = strMessage.padStart(Math.ceil(strMessage.length / 8) * 8, '0');
+    
+    let result = "";
+    for (let i = 0; i < strMessage.length; i += 8) {
+        const codePoint = parseInt(strMessage.substring(i, i + 8), 16);
+        if (codePoint !== 0) {
+            result += String.fromCodePoint(codePoint);
+        }
+>>>>>>> 1de77d4c84f14dad096022c1fc0c553ecf74e4f5
     }
 
     return result;

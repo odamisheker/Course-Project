@@ -7,8 +7,11 @@ import { UserContext } from "../../components/context/UserContextProvider";
 
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
+<<<<<<< HEAD
 import { decrypting } from "../../algorithms/RSA/decrypt";
 import { apiClient } from "../../api";
+=======
+>>>>>>> 1de77d4c84f14dad096022c1fc0c553ecf74e4f5
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -97,5 +100,8 @@ export default function SignUp() {
       </div>
     </div>
   );
+<<<<<<< HEAD
   //console.log(decrypting());
+=======
+>>>>>>> 1de77d4c84f14dad096022c1fc0c553ecf74e4f5
 }
