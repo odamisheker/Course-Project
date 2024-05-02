@@ -5,7 +5,6 @@ import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
 import { apiClient } from "../../api";
 
-
 export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -93,8 +92,4 @@ export default function SignUp() {
       </div>
     </div>
   );
-<<<<<<< HEAD
-  //console.log(decrypting());
-=======
->>>>>>> 1de77d4c84f14dad096022c1fc0c553ecf74e4f5
 }
