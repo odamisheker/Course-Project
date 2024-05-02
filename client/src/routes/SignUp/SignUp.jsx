@@ -1,17 +1,10 @@
 import { useContext, useState } from "react";
-
-import axios from "axios";
-
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
-
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
-<<<<<<< HEAD
-import { decrypting } from "../../algorithms/RSA/decrypt";
 import { apiClient } from "../../api";
-=======
->>>>>>> 1de77d4c84f14dad096022c1fc0c553ecf74e4f5
+
 
 export default function SignUp() {
   const [name, setName] = useState("");
