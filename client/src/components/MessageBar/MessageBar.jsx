@@ -15,9 +15,7 @@ export default function MessageBar({ chats }) {
       {!isSettingsOn ? (
         <div className={styles.wrapper}>
           <ToolBar onUsersChange={setUsers} onOpen={setSettingsOn} />
-          {users.map((e, i) => (
-            <User key={i} user={e} />
-          ))}
+          {users.map((e, i) => <User key={i} user={e} />) || "no users"}
         </div>
       ) : (
         <Settings onClose={setSettingsOn} />

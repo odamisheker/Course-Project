@@ -8,7 +8,7 @@ export default function ChatContextProvider({ children }) {
 
   return (
     <ChatContext.Provider
-      value={{ chatId: id, changeChatId: setId }} //user, changeUser: setUser,
+      value={{ chatID: id, changeChatID: setId }} //user, changeUser: setUser,
     >
       {children}
     </ChatContext.Provider>

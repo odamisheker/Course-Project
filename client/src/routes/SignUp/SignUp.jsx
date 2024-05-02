@@ -8,6 +8,7 @@ import { UserContext } from "../../components/context/UserContextProvider";
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
 import { decrypting } from "../../algorithms/RSA/decrypt";
+import { apiClient } from "../../api";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -37,8 +38,8 @@ export default function SignUp() {
       return;
     }
 
-    axios
-      .post("http://localhost:8000/auth/registration", {
+    apiClient
+      .addUser({
         username: name,
         password: password,
       })
@@ -96,5 +97,5 @@ export default function SignUp() {
       </div>
     </div>
   );
-  console.log(decrypting());
+  //console.log(decrypting());
 }

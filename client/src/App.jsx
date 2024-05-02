@@ -41,12 +41,6 @@ function App() {
           </ChatContextProvider>
         </RequireAuth>
       ),
-      // children: [
-      //   {
-      //     path: "/chat/:id",
-      //     element
-      //   },
-      // ],
     },
   ]);
   return (

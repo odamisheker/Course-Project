@@ -5,7 +5,6 @@ import styles from "./WindowChat.module.css";
 import InputMessage from "../InputMessage/InputMessage";
 import ChatToolBar from "../ChatToolBar/ChatToolBar";
 import { ChatContext } from "../context/ChatContextProvider";
-import axios from "axios";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);

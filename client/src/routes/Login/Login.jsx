@@ -2,13 +2,13 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
-
+import { apiClient } from "../../api";
 import styles from "./Login.module.css";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [error, setError] = useState();
 
   const navigate = useNavigate();
   const { changeUser } = useContext(UserContext);
@@ -21,20 +21,14 @@ export default function Login() {
 
   const handleLogin = async () => {
     if (name.trim() == "" || password.trim() == "") return;
-    // ! проверить правильность написания запроса
-    axios
-      .post("http://localhost:8000/auth/login", {
-        username: name.trim(),
-        password: password.trim(),
-      })
+
+    const res = await apiClient
+      .checkUser({ username: name.trim(), password: password.trim() })
       .then((res) => {
-        //console.log(res.data.username);
         changeUser(res.data.username);
         navigate("/chat");
       })
-      .catch((e) => {
-        setErrors((curErr) => [...curErr, e.response.data.message]);
-      });
+      .catch((e) => setError(e.response.data.message));
   };
 
   return (
@@ -67,9 +61,7 @@ export default function Login() {
             don't have account - sign up
           </p>
         </div>
-        <div className={styles.error}>
-          {"" || errors.map((error, index) => <div key={index}>{error}</div>)}
-        </div>
+        <div className={styles.error}>{"" || <div>{error}</div>}</div>
       </div>
     </div>
   );

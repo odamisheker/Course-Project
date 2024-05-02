@@ -5,12 +5,12 @@ import styles from "./Chat.module.css";
 import { ChatContext } from "../../components/context/ChatContextProvider";
 
 export default function Chat() {
-  const { chatId } = useContext(ChatContext);
+  const { chatID } = useContext(ChatContext);
 
   return (
     <div className={styles.main}>
       <MessageBar className={styles.messageBar} />
-      {(chatId && <WindowChat className={styles.windowChat} />) || (
+      {(chatID && <WindowChat className={styles.windowChat} />) || (
         <h1 className={styles.welcome}>welcome to SESSION</h1>
       )}
     </div>

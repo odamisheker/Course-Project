@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import io from "socket.io-client";
 import { nanoid } from "nanoid";
+import { UserContext } from "../components/context/UserContextProvider";
+import { ChatContext } from "../components/context/ChatContextProvider";
 
 //import { useLocalStorage, useBeforeUnload } from 'hooks'
 
 // адрес сервера
 // требуется перенаправление запросов - смотрите ниже
-const SERVER_URL = "http://localhost:5000";
+const SERVER_URL = "http://localhost:8000";
 
 export const useChat = (roomId) => {
   const [users, setUsers] = useState([]);
@@ -18,6 +20,9 @@ export const useChat = (roomId) => {
   //   const [userId] = useLocalStorage('userId', nanoid(8))
   // получаем из локального хранилища имя пользователя
   //   const [username] = useLocalStorage('username')
+
+  const { user } = useContext(UserContext);
+  const { chatID } = useContext(ChatContext);
 
   // useRef() используется не только для получения доступа к DOM-элементам,
   // но и для хранения любых мутирующих значений в течение всего жизненного цикла компонента
@@ -33,7 +38,7 @@ export const useChat = (roomId) => {
 
     // отправляем событие добавления пользователя,
     // в качестве данных передаем объект с именем и id пользователя
-    socketRef.current.emit("user:add", { username, userId });
+    socketRef.current.emit("user:add", { username, userId }); //!username брать с контекст user
 
     // обрабатываем получение списка пользователей
     socketRef.current.on("users", (users) => {
@@ -80,9 +85,9 @@ export const useChat = (roomId) => {
   };
 
   // отправляем на сервер событие "user:leave" перед перезагрузкой страницы
-//   useBeforeUnload(() => {
-//     socketRef.current.emit("user:leave", userId);
-//   });
+  //   useBeforeUnload(() => {
+  //     socketRef.current.emit("user:leave", userId);
+  //   });
 
   // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
   return { users, messages, sendMessage, removeMessage };

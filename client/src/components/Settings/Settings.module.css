@@ -11,6 +11,11 @@
   align-self: flex-end;
 
   padding: 5px;
+
+  transition: all 0.2s ease;
+}
+.close:hover {
+  background-color: rgb(242, 242, 242);
 }
 .option {
   width: 100%;
@@ -25,8 +30,13 @@
   align-items: center;
 
   cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+.option:hover {
+  background-color: rgb(242, 242, 242);
 }
 .option:last-child {
-  color: rgb(208, 208, 208);
+  color: rgb(75, 75, 75);
   border-bottom: none;
 }
