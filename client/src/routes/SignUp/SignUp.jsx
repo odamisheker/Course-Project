@@ -7,7 +7,6 @@ import { UserContext } from "../../components/context/UserContextProvider";
 
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
-import { decrypting } from "../../algorithms/RSA/decrypt";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -96,5 +95,4 @@ export default function SignUp() {
       </div>
     </div>
   );
-  console.log(decrypting());
 }

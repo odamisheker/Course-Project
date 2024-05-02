@@ -11,10 +11,8 @@ export function encrypting() {
   function string2BigInt(m) {
     let result = "";
     for (let i = 0; i < m.length; i++) {
-        // Use `codePointAt` to handle characters that may use more than one UTF-16 code unit.
         let codePoint = m.codePointAt(i);
         result += codePoint.toString(16).padStart(8, '0');
-        // If it's a surrogate pair, skip the next code unit
         if (codePoint > 0xFFFF) {
             i++;
         }

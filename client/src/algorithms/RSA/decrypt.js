@@ -15,13 +15,11 @@ export function decrypting() {
 
   function BigInt2String(bigIntMessage) {
     let strMessage = bigIntMessage.toString(16);
-    // Remove leading zeros necessary for even split
     strMessage = strMessage.padStart(Math.ceil(strMessage.length / 8) * 8, '0');
     
     let result = "";
     for (let i = 0; i < strMessage.length; i += 8) {
         const codePoint = parseInt(strMessage.substring(i, i + 8), 16);
-        // Add only valid Unicode code points
         if (codePoint !== 0) {
             result += String.fromCodePoint(codePoint);
         }
