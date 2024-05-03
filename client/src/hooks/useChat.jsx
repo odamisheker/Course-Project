@@ -7,7 +7,6 @@ import { ChatContext } from "../components/context/ChatContextProvider";
 
 //import { useLocalStorage, useBeforeUnload } from 'hooks'
 
-// адрес сервера
 // требуется перенаправление запросов - смотрите ниже
 const SERVER_URL = "http://localhost:8000";
 
@@ -18,10 +17,11 @@ export const useChat = (roomId) => {
 
   // создаем и записываем в локальное хранинище идентификатор пользователя
   //   const [userId] = useLocalStorage('userId', nanoid(8))
+
   // получаем из локального хранилища имя пользователя
   //   const [username] = useLocalStorage('username')
-
   const { user } = useContext(UserContext);
+
   const { chatID } = useContext(ChatContext);
 
   // useRef() используется не только для получения доступа к DOM-элементам,
@@ -33,7 +33,7 @@ export const useChat = (roomId) => {
     // и записываем объект с названием комнаты в строку запроса "рукопожатия"
     // socket.handshake.query.roomId
     socketRef.current = io(SERVER_URL, {
-      query: { roomId },
+      query: { chatID },
     });
 
     // отправляем событие добавления пользователя,
@@ -43,13 +43,11 @@ export const useChat = (roomId) => {
     // обрабатываем получение списка пользователей
     socketRef.current.on("users", (users) => {
       // обновляем массив пользователей
-      setUsers(users);
+      setUsers(users); // надо сделать на бэке для отдельных комнат
     });
 
-    // отправляем запрос на получение сообщений
     socketRef.current.emit("message:get");
 
-    // обрабатываем получение сообщений
     socketRef.current.on("messages", (messages) => {
       // определяем, какие сообщения были отправлены данным пользователем,
       // если значение свойства "userId" объекта сообщения совпадает с id пользователя,
@@ -58,19 +56,18 @@ export const useChat = (roomId) => {
       const newMessages = messages.map((msg) =>
         msg.userId === userId ? { ...msg, currentUser: true } : msg
       );
-      // обновляем массив сообщений
+
       setMessages(newMessages);
     });
 
     return () => {
-      // при размонтировании компонента выполняем отключение сокета
       socketRef.current.disconnect();
     };
   }, [roomId, userId, username]);
 
-  // функция отправки сообщения
   // принимает объект с текстом сообщения и именем отправителя
   const sendMessage = ({ messageText, senderName }) => {
+    // зачем sender name если можно просто username
     // добавляем в объект id пользователя при отправке на сервер
     socketRef.current.emit("message:add", {
       userId,

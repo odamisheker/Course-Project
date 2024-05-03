@@ -4,24 +4,28 @@
   display: flex;
   flex-direction: column;
 }
-.close {
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  padding: 10px;
+
+  margin-bottom: 2rem;
+
+  font-size: 1.5rem;
+}
+
+.back {
   width: 30px;
   height: 30px;
 
-  align-self: flex-end;
-
-  padding: 5px;
-
-  transition: all 0.2s ease;
+  cursor: pointer;
 }
-.close:hover {
-  background-color: rgb(242, 242, 242);
-}
+
 .option {
   width: 100%;
   height: 50px;
-
-  border-bottom: 1px solid grey;
 
   font-size: 1.2rem;
 
@@ -33,10 +37,11 @@
 
   transition: all 0.2s ease;
 }
+
 .option:hover {
   background-color: rgb(242, 242, 242);
 }
 .option:last-child {
-  color: rgb(75, 75, 75);
-  border-bottom: none;
+  color: rgb(41, 41, 41);
+  /* border-bottom: none; */
 }

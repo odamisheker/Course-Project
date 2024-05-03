@@ -8,7 +8,7 @@ export default function UserContextProvider({ children }) {
 
   useEffect(() => {
     setLoading(true);
-    const user = sessionStorage.getItem("user");
+    const user = localStorage.getItem("user");
     // setUser(user);
     if (user) {
       setUser(user);
@@ -27,7 +27,7 @@ export default function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (user) {
-      sessionStorage.setItem("user", user);
+      localStorage.setItem("user", user);
     }
   }, [user]);
 

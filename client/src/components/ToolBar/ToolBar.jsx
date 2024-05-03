@@ -3,7 +3,11 @@ import settingsIcon from "../../../public/settings.svg";
 import axios from "axios";
 import { apiClient } from "../../api";
 
-export default function ToolBar({ onUsersChange, onOpen }) {
+export default function ToolBar({
+  onUsersChange,
+  onOpenSettings,
+  onOpenProfile,
+}) {
   //TODO button "Settings" and photo profile
 
   const handleSearch = (e) => {
@@ -22,10 +26,10 @@ export default function ToolBar({ onUsersChange, onOpen }) {
 
   return (
     <div className={styles.main}>
-      <div className={styles.avatar}></div>
+      <div className={styles.avatar} onClick={onOpenProfile}></div>
       <img
         className={styles.settings}
-        onClick={() => onOpen(true)}
+        onClick={onOpenSettings}
         src={settingsIcon}
         alt="settings"
       />

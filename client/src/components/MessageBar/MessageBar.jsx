@@ -3,23 +3,33 @@ import ToolBar from "../ToolBar/ToolBar";
 import User from "../User/User";
 import styles from "./MessageBar.module.css";
 import Settings from "../Settings/Settings";
+import UserProfile from "../UserProfile/UserProfile";
 import { UserContext } from "../context/UserContextProvider";
 
 export default function MessageBar({ chats }) {
   const [users, setUsers] = useState([]);
 
-  const [isSettingsOn, setSettingsOn] = useState(false);
+  const [activeComponent, setActiveComponent] = useState("");
 
-  return (
-    <div className={styles.main}>
-      {!isSettingsOn ? (
-        <div className={styles.wrapper}>
-          <ToolBar onUsersChange={setUsers} onOpen={setSettingsOn} />
-          {users.map((e, i) => <User key={i} user={e} />) || "no users"}
-        </div>
-      ) : (
-        <Settings onClose={setSettingsOn} />
-      )}
-    </div>
-  );
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case "settings":
+        return <Settings onClose={() => setActiveComponent("messageBar")} />;
+      case "userProfile":
+        return <UserProfile onClose={() => setActiveComponent("messageBar")} />;
+      default:
+        return (
+          <div className={styles.wrapper}>
+            <ToolBar
+              onUsersChange={setUsers}
+              onOpenSettings={() => setActiveComponent("settings")}
+              onOpenProfile={() => setActiveComponent("userProfile")}
+            />
+            {users.map((e, i) => <User key={i} user={e} />) || "no users"}
+          </div>
+        );
+    }
+  };
+
+  return <div className={styles.main}>{renderComponent()}</div>;
 }

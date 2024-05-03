@@ -35,3 +35,48 @@
 
   overflow-y: auto;
 }
+
+.input_mes {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.input {
+  height: 43px;
+  width: 73%;
+
+  max-width: 73%;
+
+  font-size: 1rem;
+
+  word-wrap: break-word; /* Для поддержки старых браузеров */
+  overflow-wrap: break-word;
+
+  border-radius: 3px;
+  border: 2px solid rgb(169, 169, 169);
+
+  padding: 7px;
+
+  transition: all 0.15s ease-in;
+}
+.input:focus {
+  border-color: #000;
+}
+
+.send {
+  width: 25%;
+  height: 40px;
+
+  background-color: #000;
+  border: none;
+  border-radius: 3px;
+
+  color: #fff;
+  font-size: 1rem;
+
+  transition: 0.2s ease-in;
+}
+.send:hover {
+  background-color: #000000ee;
+}

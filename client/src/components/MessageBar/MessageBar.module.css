@@ -1,6 +1,9 @@
 .main {
-  height: 100%;
   width: 40%;
+  height: 100%;
+  max-width: 400px;
+
+  border-right: 2px solid rgb(169, 169, 169);
 }
 .wrapper {
   height: 100%;
