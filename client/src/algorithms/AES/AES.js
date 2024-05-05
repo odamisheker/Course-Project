@@ -25,12 +25,12 @@ export class AES {
   }
 
   _prepare() {
-    let rounds = 32;
+    let rounds = numberOfRounds[this.key.length]
     if (rounds === null) {
       throw new Error('invalid key size (must be length 16, 24 or 32)');
     }
 
-    console.log(rounds)
+    console.log("rounds", rounds)
 
     //* encryption round keys
     this._Ke = [];

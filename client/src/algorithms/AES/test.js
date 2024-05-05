@@ -11,8 +11,7 @@ export function test() {
   //! получать пароль юзера
   let password = "qwerty123I";
 
-  let key = generateAESKey(password, salt)
-  console.log(key)
+  let key = generateAESKey(password, salt);
 
   const text = "привет мир";
   let textBytes = encoder.encode(text);
@@ -21,13 +20,11 @@ export function test() {
   let aesCTR = new CTR(key, new Counter(0));
   aesCTR.encrypt(textBytes, encryptedBytes);
 
+
   let aesCTr = new CTR(key, new Counter(0));
 
   let decryptedBytes = new Uint8Array(encryptedBytes.length);
   aesCTr.decrypt(encryptedBytes, decryptedBytes);
 
   let decryptedText = decoder.decode(decryptedBytes);
-  console.log(decryptedText);
 }
-
-//test();
