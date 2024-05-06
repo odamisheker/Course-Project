@@ -20,5 +20,6 @@ router.post(
 );
 router.get("/users", roleMiddleware(["ADMIN"]), controller.getUsers);
 router.post("/login", controller.login);
+router.get("/chats", controller.getChats);
 
 module.exports = router;

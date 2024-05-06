@@ -25,20 +25,21 @@ class chatController {
 
   async createChat(req, res) {
     try {
-      const { id_1, id_2, messageInput } = req.body;
-      const user1 = await User.findOne({ _id: id_1 });
-      const user2 = await User.findOne({ _id: id_2 });
+      const { username1, username2, messageInput } = req.body;
+      const user1 = await User.findOne({ username: username1 });
+      const user2 = await User.findOne({ username: username2 });
 
       const message = new Message({
-        author: user1._id,
+        author: user1.username,
         content: messageInput,
         date: Date.now(),
         lastUploaded: Date.now(),
-        users: [user1._id, user2._id],
+        users: [user1.username, user2.username],
       });
 
       const chat = new Chat({
-        users: [user1._id, user2._id],
+        chatname: `${user1.username} & ${user2.username}`,
+        users: [user1.username, user2.username],
         chatID: generateCode(),
         created: Date.now(),
         messages: [message],
@@ -134,8 +135,10 @@ class chatController {
 
   async getChat(req, res) {
     try {
-      const { id_1, id_2 } = req.body; //* change id_1 -> username1 и тд
-      const chat = await Chat.findOne({ users: { $all: [id_1, id_2] } });
+      const { username1, username2 } = req.body; //* change id_1 -> username1 и тд
+      const chat = await Chat.findOne({
+        users: { $all: [username1, username2] },
+      });
 
       if (!chat) {
         return res.json({ message: "Chat not exists." });
