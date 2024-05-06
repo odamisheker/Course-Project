@@ -9,6 +9,7 @@ class api {
       baseURL: base_url,
       headers: {
         "Content-Type": "application/json",
+        // * "Authorization": "token?",
         //! You can add other headers like authorization token here
       },
     });
