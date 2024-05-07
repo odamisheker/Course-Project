@@ -1,5 +1,6 @@
 const User = require("./models/User");
 const Role = require("./models/Role");
+const Chat = require("../chat/models/Chat");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
@@ -34,7 +35,6 @@ class authController {
       const userRole = await Role.findOne({ value: "USER" });
       const user = new User({
         username,
-        // publicname,
         password: hashPassword,
         roles: [userRole.value],
       });
@@ -64,6 +64,23 @@ class authController {
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Login error." });
+    }
+  }
+
+  async getChats(req, res) {
+    try {
+      const { username } = req.body;
+
+      const chats = await Chat.find({ users: username });
+
+      const chatsData = chats.map((chat) => {
+        return { chatID: chat.chatID, chatname: chat.chatname };
+      });
+
+      return res.json(chatsData);
+    } catch (e) {
+      console.log(e);
+      return res.status(400).json({ message: "Get chats error." });
     }
   }
 

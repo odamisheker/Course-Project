@@ -4,7 +4,7 @@ const authMiddleware = require("../auth/middleware/authMiddleware");
 const router = new Router();
 
 router.get("/chat/messages", authMiddleware, controller.getMessages);
-router.post("/chat/create", authMiddleware, controller.createChat);
+router.post("/chat/create", /*authMiddleware,*/ controller.createChat);
 router.get("/chat", authMiddleware, controller.getChat);
 
 // ! socket io

@@ -3,6 +3,17 @@ import Cookies from "js-cookie";
 
 const BASE_URL = "http://localhost:8000";
 
+class api {
+  apiClient;
+  constructor(base_url) {
+    this.apiClient = axios.create({
+      baseURL: base_url,
+      headers: {
+        "Content-Type": "application/json",
+        // * "Authorization": "token?",
+        //! You can add other headers like authorization token here
+      },
+    });
 const api_client = axios.create({
   baseURL: BASE_URL,
   headers: {
