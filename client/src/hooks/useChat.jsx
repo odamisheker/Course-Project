@@ -38,13 +38,13 @@ export const useChat = (roomId) => {
 
     // отправляем событие добавления пользователя,
     // в качестве данных передаем объект с именем и id пользователя
-    socketRef.current.emit("user:add", { username, userId }); //!username брать с контекст user
+    /*socketRef.current.emit("user:add", { username }); //!username брать с контекст user
 
     // обрабатываем получение списка пользователей
     socketRef.current.on("users", (users) => {
       // обновляем массив пользователей
       setUsers(users); // надо сделать на бэке для отдельных комнат
-    });
+    });*/
 
     socketRef.current.emit("message:get");
 

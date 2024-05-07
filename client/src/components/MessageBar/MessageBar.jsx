@@ -4,11 +4,21 @@ import User from "../User/User";
 import styles from "./MessageBar.module.css";
 import UserProfile from "../UserProfile/UserProfile";
 import { UserContext } from "../context/UserContextProvider";
+import axios from "axios";
 
 export default function MessageBar() {
+  const { user } = useContext(UserContext);
   const [users, setUsers] = useState([]);
 
   const [activeComponent, setActiveComponent] = useState("");
+
+  useEffect(() => {
+    console.log(user);
+    axios
+      .get("http://localhost:8000/auth/chats", { username: user })
+      .then((res) => console.log(res.data))
+      .catch((e) => console.log(e.response.message));
+  }, []);
 
   const renderComponent = () => {
     switch (activeComponent) {
