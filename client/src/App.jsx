@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import Login from "./routes/Login/Login";
 import SignUp from "./routes/SignUp/SignUp";
-import EnterChat from "./routes/EnterChat/EnterChat";
 import UserContextProvider from "./components/context/UserContextProvider";
 import Chat from "./routes/Chat/Chat";
 import RequireAuth from "./components/RequireAuth";
@@ -22,10 +21,6 @@ function App() {
     {
       path: "/signup",
       element: <SignUp />,
-    },
-    {
-      path: "/enterChat",
-      element: <EnterChat />,
     },
     {
       path: "/",

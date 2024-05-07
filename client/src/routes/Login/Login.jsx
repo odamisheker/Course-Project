@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../components/context/UserContextProvider";
 import { apiClient } from "../../api";
+import Cookies from "js-cookie";
 import styles from "./Login.module.css";
 
 export default function Login() {
@@ -25,6 +25,8 @@ export default function Login() {
     const res = await apiClient
       .checkUser({ username: name.trim(), password: password.trim() })
       .then((res) => {
+        console.log(res.data);
+        Cookies.set("token", res.data.token);
         changeUser(res.data.username);
         navigate("/chat");
       })

@@ -4,7 +4,12 @@ import styles from "./UserProfile.module.css";
 import backIcon from "../../../public/back.svg";
 
 export default function UserProfile({ onClose }) {
-  const { user } = useContext(UserContext);
+  const { user, changeUser } = useContext(UserContext);
+
+  const handleLogOut = () => {
+    changeUser(null);
+    sessionStorage.removeItem("user");
+  };
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -15,6 +20,10 @@ export default function UserProfile({ onClose }) {
           className={styles.back}
         />
         <p>{user}</p>
+      </div>
+      <div>userPhoto</div>
+      <div onClick={handleLogOut} className={styles.option}>
+        Log out
       </div>
     </div>
   );

@@ -1,14 +1,8 @@
 import styles from "./ToolBar.module.css";
-import settingsIcon from "../../../public/settings.svg";
-import axios from "axios";
 import { apiClient } from "../../api";
 
-export default function ToolBar({
-  onUsersChange,
-  onOpenSettings,
-  onOpenProfile,
-}) {
-  //TODO button "Settings" and photo profile
+export default function ToolBar({ onUsersChange, onOpenProfile }) {
+  //TODO  and photo profile
 
   const handleSearch = (e) => {
     if (e.target.value == "") {
@@ -18,8 +12,8 @@ export default function ToolBar({
     apiClient
       .searchByUsername({ searchInput: e.target.value })
       .then((res) => {
-        // console.log(r.data);
-        onUsersChange(res.data);
+        console.log(res.data);
+        if (res.data.length != 0) onUsersChange(res.data);
       })
       .catch((e) => console.log(e.response.data.message));
   };
@@ -27,12 +21,6 @@ export default function ToolBar({
   return (
     <div className={styles.main}>
       <div className={styles.avatar} onClick={onOpenProfile}></div>
-      <img
-        className={styles.settings}
-        onClick={onOpenSettings}
-        src={settingsIcon}
-        alt="settings"
-      />
       <input
         onChange={handleSearch}
         //onFocus={handleSearch}
