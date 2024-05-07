@@ -7,16 +7,16 @@ class chatController {
   async getMessages(req, res) {
     // * возможно не нужно
     try {
-      const { id_1, id_2 } = req.body;
+      const { username1, username2 } = req.body;
 
-      const chat = await Chat.findOne({ users: { $all: [id_1, id_2] } });
+      const chat = await Chat.findOne({
+        users: { $all: [username1, username2] },
+      });
       if (!chat) {
         return res.json({ message: "Chat not exists." });
       }
 
-      return res
-        .status(200)
-        .json({ chatID: chat.chatID, messages: chat.messages });
+      return res.status(200).json({ messages: chat.messages });
     } catch (e) {
       console.log(e);
       return res.status(400).json({ message: "Get messages error." });
@@ -57,12 +57,12 @@ class chatController {
 
   async sendMessage(req, res) {
     try {
-      const { user_id, chat_id, messageInput } = req.body;
-      const user = await User.findOne({ _id: user_id });
-      const chat = await Chat.findOne({ _id: chat_id });
+      const { username, chatID, messageInput } = req.body;
+      const user = await User.findOne({ username: username });
+      const chat = await Chat.findOne({ chatID: chatID });
 
       const message = new Message({
-        author: user._id,
+        author: user.username,
         content: messageInput,
         date: Date.now(),
         lastUploaded: Date.now(),
@@ -82,6 +82,9 @@ class chatController {
   }
 
   async deleteMessageForMe(req, res) {
+    // ! message_id --> anything else
+    // ! chat_id --> chatID
+    // ! user_id --> username
     try {
       const { user_id, chat_id, message_id } = req.body;
       const user = await User.findOne({ _id: user_id });
@@ -100,6 +103,8 @@ class chatController {
   }
 
   async deleteMesssageForAll(req, res) {
+    // ! message_id --> anything else
+    // ! chat_id --> chatID
     try {
       const { chat_id, message_id } = req.body;
       const chat = await Chat.findOne({ _id: chat_id });
@@ -116,6 +121,8 @@ class chatController {
   }
 
   async editMessage(req, res) {
+    // ! message_id --> anything else
+    // ! chat_id --> chatID
     try {
       const { chat_id, message_id, newContent } = req.body;
       const chat = await Chat.findOne({ _id: chat_id });
@@ -135,7 +142,7 @@ class chatController {
 
   async getChat(req, res) {
     try {
-      const { username1, username2 } = req.body; //* change id_1 -> username1 и тд
+      const { username1, username2 } = req.body;
       const chat = await Chat.findOne({
         users: { $all: [username1, username2] },
       });
@@ -153,8 +160,8 @@ class chatController {
 
   async deleteChat(req, res) {
     try {
-      const { chat_id } = req.body;
-      const chat = await Chat.findOne({ chatID: chat_id });
+      const { chatID } = req.body;
+      const chat = await Chat.findOne({ chatID: chatID });
 
       if (!chat) {
         return res.json({
