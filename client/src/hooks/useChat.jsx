@@ -53,20 +53,20 @@ export const useChat = (roomId) => {
       // если значение свойства "userId" объекта сообщения совпадает с id пользователя,
       // то добавляем в объект сообщения свойство "currentUser" со значением "true",
       // иначе, просто возвращаем объект сообщения
-      const newMessages = messages.map((msg) =>
-        msg.userId === userId ? { ...msg, currentUser: true } : msg
-      );
+      // const newMessages = messages.map((msg) =>
+      //   msg.userId === userId ? { ...msg, currentUser: true } : msg
+      // );
 
-      setMessages(newMessages);
+      setMessages(messages);
     });
 
     return () => {
       socketRef.current.disconnect();
     };
-  }, [roomId, userId, username]);
+  }, [roomId, user]);
 
   // принимает объект с текстом сообщения и именем отправителя
-  const sendMessage = ({ messageText, senderName }) => {
+  /* const sendMessage = ({ messageText, senderName }) => {
     // зачем sender name если можно просто username
     // добавляем в объект id пользователя при отправке на сервер
     socketRef.current.emit("message:add", {
@@ -79,7 +79,7 @@ export const useChat = (roomId) => {
   // функция удаления сообщения по id
   const removeMessage = (id) => {
     socketRef.current.emit("message:remove", id);
-  };
+  };*/
 
   // отправляем на сервер событие "user:leave" перед перезагрузкой страницы
   //   useBeforeUnload(() => {
@@ -87,5 +87,6 @@ export const useChat = (roomId) => {
   //   });
 
   // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
-  return { users, messages, sendMessage, removeMessage };
+  // return { users, messages, sendMessage, removeMessage };
+  return { messages };
 };

@@ -42,6 +42,9 @@ class api {
   searchByUsername(data) {
     return this.apiClient.post("/search/get", data);
   }
+  getChats(data) {
+    return this.apiClient.post("/auth/chats", data);
+  }
 }
 
 export const apiClient = new api();

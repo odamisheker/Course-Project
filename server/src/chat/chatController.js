@@ -25,30 +25,30 @@ class chatController {
 
   async createChat(req, res) {
     try {
-      const { username1, username2, messageInput } = req.body;
+      const { username1, username2 } = req.body;
       const user1 = await User.findOne({ username: username1 });
       const user2 = await User.findOne({ username: username2 });
 
-      const message = new Message({
-        author: user1.username,
-        content: messageInput,
-        date: Date.now(),
-        lastUploaded: Date.now(),
-        users: [user1.username, user2.username],
-      });
+      // const message = new Message({
+      //   author: user1.username,
+      //   content: messageInput,
+      //   date: Date.now(),
+      //   lastUploaded: Date.now(),
+      //   users: [user1.username, user2.username],
+      // });
 
       const chat = new Chat({
         chatname: `${user1.username} & ${user2.username}`,
         users: [user1.username, user2.username],
         chatID: generateCode(),
         created: Date.now(),
-        messages: [message],
+        messages: [],
       });
 
-      await message.save();
+      //await message.save();
       await chat.save();
 
-      return res.json({ message: "Chat successfully created!" });
+      return res.json({ chatID: chat.chatID });
     } catch (e) {
       console.log(e);
       return res.status(400).json({ message: "Chat creation error." });
@@ -148,7 +148,7 @@ class chatController {
       });
 
       if (!chat) {
-        return res.json({ message: "Chat not exists." });
+        return res.status(400).json({ message: "Chat not exists." });
       }
 
       return res.json({ chatID: chat.chatID });

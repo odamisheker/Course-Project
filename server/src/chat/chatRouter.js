@@ -5,7 +5,7 @@ const router = new Router();
 
 router.get("/chat/messages", authMiddleware, controller.getMessages);
 router.post("/chat/create", /*authMiddleware,*/ controller.createChat);
-router.get("/chat", authMiddleware, controller.getChat);
+router.post("/chat", /* authMiddleware,*/ controller.getChat);
 
 // ! socket io
 

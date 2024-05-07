@@ -1,17 +1,16 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContextProvider";
 import Message from "../Message/Message";
 import styles from "./WindowChat.module.css";
 import ChatToolBar from "../ChatToolBar/ChatToolBar";
 import { ChatContext } from "../context/ChatContextProvider";
+import { useChat } from "../../hooks/useChat";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);
-  const { chatId } = useContext(ChatContext);
+  const { chatID } = useContext(ChatContext);
 
   const [message, setMessage] = useState(null);
-
-  //* {messages, sendMessage, removeMessage} = useChat(chatID)
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -26,6 +25,8 @@ export default function WindowChat() {
 
     //*sendMessage(message);
   };
+  // const { messages } = useChat(chatID);
+  // console.log(messages);
 
   return (
     <div className={styles.main}>

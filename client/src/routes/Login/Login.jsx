@@ -22,7 +22,7 @@ export default function Login() {
   const handleLogin = async () => {
     if (name.trim() == "" || password.trim() == "") return;
 
-    const res = await apiClient
+    apiClient
       .checkUser({ username: name.trim(), password: password.trim() })
       .then((res) => {
         console.log(res.data);
@@ -30,7 +30,10 @@ export default function Login() {
         changeUser(res.data.username);
         navigate("/chat");
       })
-      .catch((e) => setError(e.response.data.message));
+      .catch((e) => {
+        // console.log(e);
+        setError(e.response.data.message);
+      });
   };
 
   return (

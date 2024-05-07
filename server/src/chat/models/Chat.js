@@ -5,7 +5,7 @@ const Chat = new Schema({
   users: [{ type: String, required: true, ref: "../../auth/models/User" }],
   chatID: { type: String, unique: true, required: true },
   created: { type: String, required: true },
-  messages: [{ type: String, ref: "Message" }],
+  messages: [{ type: String, required: true, ref: "./Message" }],
 });
 
 module.exports = model("Chat", Chat);

@@ -8,17 +8,17 @@ import axios from "axios";
 
 export default function MessageBar() {
   const { user } = useContext(UserContext);
-  const [users, setUsers] = useState([]);
+  const [chats, setChats] = useState([]);
 
   const [activeComponent, setActiveComponent] = useState("");
 
-  useEffect(() => {
-    console.log(user);
-    axios
-      .get("http://localhost:8000/auth/chats", { username: user })
-      .then((res) => console.log(res.data))
-      .catch((e) => console.log(e.response.message));
-  }, []);
+  // useEffect(() => {
+  //   //console.log(user);
+  //   axios
+  //     .post("http://localhost:8000/auth/chats", { username: user })
+  //     .then((res) => setChats(res.data))
+  //     .catch((e) => console.log(e.response.message));
+  // }, []);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -28,12 +28,15 @@ export default function MessageBar() {
         return (
           <div className={styles.wrapper}>
             <ToolBar
-              onUsersChange={setUsers}
+              chats={chats}
+              onChatsChange={setChats}
               onOpenProfile={() => setActiveComponent("userProfile")}
             />
-            {users.length != 0
-              ? users.map((e, i) => <User key={i} user={e} />)
-              : "no users"}
+            {chats.length != 0
+              ? chats.map((e, i) => (
+                  <User key={i} name={e.name} id={e.chatID} />
+                ))
+              : "no chats"}
           </div>
         );
     }

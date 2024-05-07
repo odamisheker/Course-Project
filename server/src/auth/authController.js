@@ -74,7 +74,7 @@ class authController {
       const chats = await Chat.find({ users: username });
 
       const chatsData = chats.map((chat) => {
-        return { chatID: chat.chatID, chatname: chat.chatname };
+        return { chatID: chat.chatID, name: chat.chatname };
       });
 
       return res.json(chatsData);

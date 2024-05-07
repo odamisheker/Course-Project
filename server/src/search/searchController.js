@@ -15,7 +15,7 @@ class searchController {
           .json({ message: "User with this name not found." });
       }
       const searchedUsersNames = searchedUsers.map((user) => ({
-        username: user.username,
+        name: user.username,
       }));
 
       return res.json(searchedUsersNames);
