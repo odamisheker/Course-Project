@@ -13,7 +13,7 @@ function Message({ onDelete, onEdit, data }) {
     maybe edit delete
   */
 
-  const { text, time, username } = data;
+  //const { text, time, username } = data;
 
   const [position, setPosition] = useState({ x: null, y: null });
   const [menuActive, setMenuActive] = useState(false);
@@ -59,12 +59,13 @@ function Message({ onDelete, onEdit, data }) {
         <p className={styles.menuItem}>Delete for all</p>
       </Modal>
       <div className={styles.message} onContextMenu={handleContextMenu}>
-        <p className={styles.content}>{text}</p>
+        <p className={styles.content}>{data}</p>
         <p className={styles.time}>
-          {new Date(time).toLocaleString(undefined, {
+          {/* {new Date(time).toLocaleString(undefined, {
             hour: "2-digit",
             minute: "2-digit",
-          })}
+          })} */}
+          23:45
         </p>
       </div>
     </div>

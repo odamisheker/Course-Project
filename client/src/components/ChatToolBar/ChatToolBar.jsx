@@ -3,12 +3,14 @@ import styles from "./ChatToolBar.module.css";
 import { ChatContext } from "../context/ChatContextProvider";
 
 const ChatToolBar = () => {
-  const { chatId } = useContext(ChatContext);
+  const {
+    chat: { chatname },
+  } = useContext(ChatContext);
   return (
     <div className={styles.main}>
       <div className={styles.container}>
-        <p className={styles.headText}>{chatId}</p>
-        <p className={styles.extraText}>5 minutes again</p>
+        <p className={styles.headText}>{chatname}</p>
+        {/* <p className={styles.extraText}>5 minutes again</p> */}
       </div>
     </div>
   );

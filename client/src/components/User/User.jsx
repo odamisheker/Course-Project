@@ -7,7 +7,8 @@ import { UserContext } from "../context/UserContextProvider";
 
 const User = ({ name, id }) => {
   const { user } = useContext(UserContext);
-  const { changeChatID } = useContext(ChatContext);
+  //const { changeChatID } = useContext(ChatContext);
+  const { changeChat } = useContext(ChatContext);
 
   const getChatNameForChat = (chatname, currentUser) => {
     const users = chatname.split("&");
@@ -18,7 +19,7 @@ const User = ({ name, id }) => {
   name = getChatNameForChat(name, user);
 
   const handleOpenChat = () => {
-    if (id) changeChatID(id);
+    if (id) changeChat({ chatID: id, chatname: name });
     else {
       axios
         .post("http://localhost:8000/chat/chat", {
@@ -27,7 +28,8 @@ const User = ({ name, id }) => {
         })
         .then((r) => {
           console.log(r.data);
-          changeChatId(r.data);
+          //changeChatId(r.data);
+          changeChat({ chatID: r.data, chatname: name });
         })
         .catch((e) => {
           console.log("Chat not exists", e.response);
@@ -38,7 +40,7 @@ const User = ({ name, id }) => {
             })
             .then((r) => {
               console.log("New chat created", r.data.chatID);
-              changeChatId(r.data.chatID);
+              changeChat({ chatID: r.data.chatID, chatname: name });
             })
             .catch((e) => console.log("Chat create error", e.response));
         });

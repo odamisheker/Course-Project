@@ -8,7 +8,9 @@ import { useChat } from "../../hooks/useChat";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);
-  const { chatID } = useContext(ChatContext);
+  //const { chatID } = useContext(ChatContext);
+
+  const [messages, setMessages] = useState([]);
 
   const [message, setMessage] = useState(null);
 
@@ -23,6 +25,9 @@ export default function WindowChat() {
 
     if (!message.trim()) return;
 
+    setMessages((c) => [...c, message.trim()]);
+    setMessage("");
+
     //*sendMessage(message);
   };
   // const { messages } = useChat(chatID);
@@ -32,7 +37,7 @@ export default function WindowChat() {
     <div className={styles.main}>
       <div className={styles.wrapper}>
         <ChatToolBar />
-        {/* <div className={styles.messages}>
+        <div className={styles.messages}>
           {messages
             .slice()
             .reverse()
@@ -44,7 +49,7 @@ export default function WindowChat() {
                 // onDelete={handleDelete}
               />
             ))}
-        </div> */}
+        </div>
         <div className={styles.input_mes}>
           <input
             placeholder="your message"

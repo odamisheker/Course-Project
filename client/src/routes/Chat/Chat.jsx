@@ -5,7 +5,10 @@ import styles from "./Chat.module.css";
 import { ChatContext } from "../../components/context/ChatContextProvider";
 
 export default function Chat() {
-  const { chatID } = useContext(ChatContext);
+  //const { chatID } = useContext(ChatContext);
+  const {
+    chat: { chatID, chatname },
+  } = useContext(ChatContext);
 
   return (
     <div className={styles.main}>

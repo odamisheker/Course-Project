@@ -18,18 +18,14 @@
 .content {
   width: 150px;
 
-  background-color: #fff;
-
   background-color: #bababa;
   border-radius: 5px;
-
-  box-shadow: 5px grey;
 
   display: flex;
   flex-direction: column;
 
   opacity: 0;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .content_active {
