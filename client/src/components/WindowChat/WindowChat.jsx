@@ -8,21 +8,20 @@ import { useChat } from "../../hooks/useChat";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);
-  //const { chatID } = useContext(ChatContext);
+  const { chatID } = useContext(ChatContext);
 
   //const [messages, setMessages] = useState([]);
 
   const [message, setMessage] = useState(null);
-  const [originalText, setOriginalText] = useState(null);
 
   const [
     messages,
     users,
     sendMessage,
-    editMessage,
-    removeMessageForMe,
-    removeMessage,
-  ] = useChat();
+    // editMessage,
+    // removeMessageForMe,
+    // removeMessage,
+  ] = useChat(chatID);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -34,14 +33,11 @@ export default function WindowChat() {
     //Todo validate message
     setMessage(message.trim());
     if (!message.trim()) return;
-    if (message != originalText) {
-      editMessage();
-    }
+
     //setMessages((c) => [...c, message.trim()]);
     sendMessage(message);
 
     setMessage("");
-    setOriginalText(null);
   };
   // const { messages } = useChat(chatID);
   // console.log(messages);
@@ -56,18 +52,19 @@ export default function WindowChat() {
       <div className={styles.wrapper}>
         <ChatToolBar />
         <div className={styles.messages}>
-          {messages
-            .slice()
-            .reverse()
-            .map((m, i) => (
-              <Message
-                key={i}
-                data={m}
-                onEdit={handleEdit}
-                onDeleteForMe={removeMessageForMe}
-                onDelete={removeMessage}
-              />
-            ))}
+          {messages &&
+            messages
+              .slice()
+              .reverse()
+              .map((m, i) => (
+                <Message
+                  key={i}
+                  data={m}
+                  // onEdit={handleEdit}
+                  // onDeleteForMe={removeMessageForMe}
+                  // onDelete={removeMessage}
+                />
+              ))}
         </div>
         <div className={styles.input_mes}>
           <input

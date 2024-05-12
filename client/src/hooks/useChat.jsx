@@ -5,18 +5,18 @@ import io from "socket.io-client";
 import { UserContext } from "../components/context/UserContextProvider";
 import { ChatContext } from "../components/context/ChatContextProvider";
 
-import { useBeforeUnload } from "hooks";
+import { useBeforeUnload } from "./useBeforeUnload";
 
 // требуется перенаправление запросов - смотрите ниже
 const SERVER_URL = "http://localhost:8000";
 
-export const useChat = () => {
+export const useChat = (chatID) => {
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
 
   const { user } = useContext(UserContext);
 
-  const { chatID } = useContext(ChatContext);
+  // const { chatID } = useContext(ChatContext);
 
   // useRef() используется не только для получения доступа к DOM-элементам,
   // но и для хранения любых мутирующих значений в течение всего жизненного цикла компонента
@@ -55,7 +55,7 @@ export const useChat = () => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [roomId, user]);
+  }, [chatID, user]);
 
   // принимает объект с текстом сообщения и именем отправителя
   const sendMessage = (messageText) => {
@@ -68,16 +68,16 @@ export const useChat = () => {
   };
 
   // функция удаления сообщения по id
-  const removeMessageForMe = (id) => {
-    socketRef.current.emit("message:removeForMe", id);
-  };
-  const removeMessage = (id) => {
-    socketRef.current.emit("message:remove", id);
-  };
+  // const removeMessageForMe = (id) => {
+  //   socketRef.current.emit("message:removeForMe", id);
+  // };
+  // const removeMessage = (id) => {
+  //   socketRef.current.emit("message:remove", id);
+  // };
 
-  const editMessage = (id, messageText) => {
-    socketRef.current.emit("message:edit", { id, messageText });
-  };
+  // const editMessage = (id, messageText) => {
+  //   socketRef.current.emit("message:edit", { id, messageText });
+  // };
 
   // отправляем на сервер событие "user:leave" перед перезагрузкой страницы
   useBeforeUnload(() => {
@@ -85,6 +85,13 @@ export const useChat = () => {
   });
 
   // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
-  return { users, messages, sendMessage, editMessage, removeMessageForMe, removeMessage };
+  return [
+    users,
+    messages,
+    sendMessage,
+    // editMessage,
+    // removeMessageForMe,
+    // removeMessage,
+  ];
   //return { messages};
 };

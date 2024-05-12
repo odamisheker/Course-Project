@@ -1,6 +1,6 @@
 const Router = require("express");
-const controller = require("./chatController");
-const authMiddleware = require("../auth/middleware/authMiddleware");
+const controller = require("../controllers/chatController");
+const authMiddleware = require("../middlewares/authMiddleware");
 const router = new Router();
 
 router.get("/chat/messages", authMiddleware, controller.getMessages);
