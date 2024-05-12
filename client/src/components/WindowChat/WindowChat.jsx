@@ -8,7 +8,7 @@ import { useChat } from "../../hooks/useChat";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);
-  //const { chatID } = useContext(ChatContext);
+  const { chatID } = useContext(ChatContext);
 
   //const [messages, setMessages] = useState([]);
 
@@ -18,10 +18,10 @@ export default function WindowChat() {
     messages,
     users,
     sendMessage,
-    editMessage,
-    removeMessageForMe,
-    removeMessage,
-  ] = useChat();
+    // editMessage,
+    // removeMessageForMe,
+    // removeMessage,
+  ] = useChat(chatID);
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {

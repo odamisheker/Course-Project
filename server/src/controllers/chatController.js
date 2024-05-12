@@ -1,6 +1,6 @@
-const User = require("../auth/models/User");
-const Chat = require("./models/Chat");
-const Message = require("./models/Message");
+const User = require("../models/User");
+const Chat = require("../models/Chat");
+const Message = require("../models/Message");
 const generateCode = require("../algorithms/generateCode");
 
 class chatController {
@@ -25,30 +25,32 @@ class chatController {
 
   async createChat(req, res) {
     try {
-      const { username1, username2 } = req.body;
+      const { username1, username2, messageInput } = req.body;
       const user1 = await User.findOne({ username: username1 });
       const user2 = await User.findOne({ username: username2 });
-
-      // const message = new Message({
-      //   author: user1.username,
-      //   content: messageInput,
-      //   date: Date.now(),
-      //   lastUploaded: Date.now(),
-      //   users: [user1.username, user2.username],
-      // });
 
       const chat = new Chat({
         chatname: `${user1.username} & ${user2.username}`,
         users: [user1.username, user2.username],
         chatID: generateCode(),
         created: Date.now(),
-        messages: [],
+        messages: [
+          //   {
+          //     author: user1.username,
+          //     content: messageInput,
+          //     date: Date.now(),
+          //     lastUploaded: Date.now(),
+          //     users: [user1.username, user2.username],
+          //   },
+        ],
       });
 
-      //await message.save();
       await chat.save();
 
-      return res.json({ chatID: chat.chatID });
+      return res.json({
+        message: "Chat successfully created.",
+        chatID: chat.chatID,
+      });
     } catch (e) {
       console.log(e);
       return res.status(400).json({ message: "Chat creation error." });

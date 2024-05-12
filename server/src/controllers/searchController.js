@@ -1,4 +1,4 @@
-const User = require("../auth/models/User");
+const User = require("../models/User");
 
 class searchController {
   async findByUsername(req, res) {

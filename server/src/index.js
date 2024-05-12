@@ -1,16 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const authRouter = require("./auth/authRouter");
-const searchRouter = require("./search/searchRouter");
-const chatRouter = require("./chat/chatRouter");
+const authRouter = require("./routers/authRouter");
+const searchRouter = require("./routers/searchRouter");
+const chatRouter = require("./routers/chatRouter");
+const onConnection = require("./handlers/onConnection");
 const http = require("http");
+
 const PORT = process.env.PORT || 8000;
 
 const app = express();
-
 app.use(express.json());
-
+app.use(cors());
 const server = http.createServer(app); // Создаем сервер для Express
 
 const io = require("socket.io")(server, {
@@ -18,35 +19,8 @@ const io = require("socket.io")(server, {
     origin: "*",
   },
 });
-app.use(cors());
-// !
-const Chat = require("./chat/models/Chat");
-// !
 
-// const onConnection = (socket) => {
-//   console.log("User connected");
-
-//   const { chatID } = socket.handshake.query;
-//   socket.roomId = chatID;
-
-//   socket.join(chatID);
-
-//   socket.on("message:get", async () => {
-//     const chat = await Chat.findOne({
-//       chatID: chatID,
-//     });
-//     console.log(chat);
-//     const messages = chat.messages;
-//     io.in(socket.roomId).emit("messages", messages);
-//   });
-
-//   socket.on("disconnect", () => {
-//     console.log("User disconnected");
-//     socket.leave(chatID);
-//   });
-// };
-
-// io.on("connection", onConnection);
+io.on("connection", onConnection);
 
 app.use("/auth", authRouter);
 app.use("/search", searchRouter);
