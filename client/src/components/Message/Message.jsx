@@ -5,7 +5,8 @@ import styles from "./Message.module.css";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import clipboard from "clipboard-copy";
 
-function Message({ onDelete, onEdit, data }) {
+function Message({ onDeleteForMe,onDelete, onEdit, data: { _id, content, data } }) {
+  //data:{ ... }
   /*
   TODO:
     time
@@ -36,9 +37,9 @@ function Message({ onDelete, onEdit, data }) {
         <p className={styles.menuItem} onClick={() => clipboard(text)}>
           Copy
         </p>
-        <p className={styles.menuItem} onClick={() => onEdit(data)}>
+        {/* <p className={styles.menuItem} onClick={() => onEdit(data)}>
           Edit
-        </p>
+        </p> */}
         <p className={styles.menuItem}>Pin</p>
         <p className={styles.menuItem}>Переслать</p>
         <p
@@ -53,10 +54,12 @@ function Message({ onDelete, onEdit, data }) {
         </p>
       </ContextMenu>
       <Modal active={modalActive} setActive={setModalActive}>
-        <p className={styles.menuItem} onClick={() => onDelete(data)}>
+        <p className={styles.menuItem} onClick={() => onDeleteForMe(_id)}>
           Delete
         </p>
-        <p className={styles.menuItem}>Delete for all</p>
+        <p className={styles.menuItem} onClick={() => onDelete(_id)}>
+          Delete for all
+        </p>
       </Modal>
       <div className={styles.message} onContextMenu={handleContextMenu}>
         <p className={styles.content}>{data}</p>

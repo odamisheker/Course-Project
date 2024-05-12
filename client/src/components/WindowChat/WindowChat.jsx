@@ -10,9 +10,19 @@ export default function WindowChat() {
   const { user } = useContext(UserContext);
   //const { chatID } = useContext(ChatContext);
 
-  const [messages, setMessages] = useState([]);
+  //const [messages, setMessages] = useState([]);
 
   const [message, setMessage] = useState(null);
+  const [originalText, setOriginalText] = useState(null);
+
+  const [
+    messages,
+    users,
+    sendMessage,
+    editMessage,
+    removeMessageForMe,
+    removeMessage,
+  ] = useChat();
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -22,16 +32,24 @@ export default function WindowChat() {
 
   const handleSend = () => {
     //Todo validate message
-
+    setMessage(message.trim());
     if (!message.trim()) return;
+    if (message != originalText) {
+      editMessage();
+    }
+    //setMessages((c) => [...c, message.trim()]);
+    sendMessage(message);
 
-    setMessages((c) => [...c, message.trim()]);
     setMessage("");
-
-    //*sendMessage(message);
+    setOriginalText(null);
   };
   // const { messages } = useChat(chatID);
   // console.log(messages);
+
+  // const handleEdit = (id, content) => {
+  //   setMessage(content);
+  //   setOriginalText(content);
+  // };
 
   return (
     <div className={styles.main}>
@@ -45,8 +63,9 @@ export default function WindowChat() {
               <Message
                 key={i}
                 data={m}
-                // onEdit={handleEdit}
-                // onDelete={handleDelete}
+                onEdit={handleEdit}
+                onDeleteForMe={removeMessageForMe}
+                onDelete={removeMessage}
               />
             ))}
         </div>
