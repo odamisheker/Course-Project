@@ -16,16 +16,9 @@ export const useChat = (chatID) => {
 
   const { user } = useContext(UserContext);
 
-  // const { chatID } = useContext(ChatContext);
-
-  // useRef() используется не только для получения доступа к DOM-элементам,
-  // но и для хранения любых мутирующих значений в течение всего жизненного цикла компонента
   const socketRef = useRef(null);
 
   useEffect(() => {
-    // создаем экземпляр сокета, передаем ему адрес сервера
-    // и записываем объект с названием комнаты в строку запроса "рукопожатия"
-    // socket.handshake.query.roomId
     socketRef.current = io(SERVER_URL, {
       query: { chatID },
     });
@@ -45,9 +38,9 @@ export const useChat = (chatID) => {
       // если значение свойства "userId" объекта сообщения совпадает с id пользователя,
       // то добавляем в объект сообщения свойство "currentUser" со значением "true",
       // иначе, просто возвращаем объект сообщения
-      const newMessages = messages.map((msg) =>
-        msg.userID === user ? { ...msg, currentUser: true } : msg
-      );
+      // const newMessages = messages.map((msg) =>
+      //   msg.userID === user ? { ...msg, currentUser: true } : msg
+      // );
 
       setMessages(messages);
     });
@@ -58,7 +51,7 @@ export const useChat = (chatID) => {
   }, [chatID, user]);
 
   // принимает объект с текстом сообщения и именем отправителя
-  const sendMessage = (messageText) => {
+  const sendMessage = (messageText, user) => {
     // зачем sender name если можно просто username
     // добавляем в объект id пользователя при отправке на сервер
     socketRef.current.emit("message:add", {
@@ -86,7 +79,7 @@ export const useChat = (chatID) => {
 
   // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
   return [
-    users,
+    // users,
     messages,
     sendMessage,
     // editMessage,

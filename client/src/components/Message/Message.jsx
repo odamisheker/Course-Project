@@ -5,7 +5,12 @@ import styles from "./Message.module.css";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import clipboard from "clipboard-copy";
 
-function Message({ onDeleteForMe,onDelete, onEdit, data: { _id, content, data } }) {
+function Message({
+  onDeleteForMe,
+  onDelete,
+  onEdit,
+  data: { _id, content, data },
+}) {
   //data:{ ... }
   /*
   TODO:
@@ -62,7 +67,7 @@ function Message({ onDeleteForMe,onDelete, onEdit, data: { _id, content, data } 
         </p>
       </Modal>
       <div className={styles.message} onContextMenu={handleContextMenu}>
-        <p className={styles.content}>{data}</p>
+        <p className={styles.content}>{content}</p>
         <p className={styles.time}>
           {/* {new Date(time).toLocaleString(undefined, {
             hour: "2-digit",

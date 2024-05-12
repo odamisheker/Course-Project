@@ -8,15 +8,17 @@ import { useChat } from "../../hooks/useChat";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);
-  const { chatID } = useContext(ChatContext);
-
+  const {
+    chat: { chatID },
+  } = useContext(ChatContext);
+  console.log(user);
   //const [messages, setMessages] = useState([]);
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState("");
 
   const [
     messages,
-    users,
+    // users,
     sendMessage,
     // editMessage,
     // removeMessageForMe,
@@ -31,16 +33,16 @@ export default function WindowChat() {
 
   const handleSend = () => {
     //Todo validate message
-    setMessage(message.trim());
+    //setMessage(message.trim());
     if (!message.trim()) return;
 
     //setMessages((c) => [...c, message.trim()]);
-    sendMessage(message);
+    sendMessage(message, user);
 
     setMessage("");
   };
   // const { messages } = useChat(chatID);
-  // console.log(messages);
+  console.log(messages);
 
   return (
     <div className={styles.main}>
@@ -55,9 +57,9 @@ export default function WindowChat() {
                 <Message
                   key={i}
                   data={m}
-                  onEdit={handleEdit}
-                  onDeleteForMe={removeMessageForMe}
-                  onDelete={removeMessage}
+                  // onEdit={handleEdit}
+                  // onDeleteForMe={removeMessageForMe}
+                  // onDelete={removeMessage}
                 />
               ))}
         </div>

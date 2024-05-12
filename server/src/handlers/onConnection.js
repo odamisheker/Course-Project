@@ -1,4 +1,4 @@
-const io = require("socket.io");
+//const io = require("socket.io");
 const registerMessageHandlers = require("./messageHandlers");
 
 const onConnection = (socket) => {

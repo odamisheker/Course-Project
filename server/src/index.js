@@ -4,8 +4,9 @@ const cors = require("cors");
 const authRouter = require("./routers/authRouter");
 const searchRouter = require("./routers/searchRouter");
 const chatRouter = require("./routers/chatRouter");
-const onConnection = require("./handlers/onConnection");
+//const onConnection = require("./handlers/onConnection");
 const http = require("http");
+const registerMessageHandlers = require("./handlers/messageHandlers");
 
 const PORT = process.env.PORT || 8000;
 
@@ -17,8 +18,23 @@ const server = http.createServer(app); // Создаем сервер для Exp
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["*"],
+    transports: ["websocket", "polling"],
+    credentials: true,
   },
+  allowEIO3: true,
 });
+
+const onConnection = (socket) => {
+  const { chatID } = socket.handshake.query;
+  socket.roomId = chatID;
+  //console.log(socket);
+  socket.join(chatID);
+  console.log("User connected");
+
+  registerMessageHandlers(io, socket);
+};
 
 io.on("connection", onConnection);
 

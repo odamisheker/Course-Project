@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./ChatToolBar.module.css";
 import { ChatContext } from "../context/ChatContextProvider";
 import Modal from "../Modal/Modal";

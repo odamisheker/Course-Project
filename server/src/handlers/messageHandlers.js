@@ -19,11 +19,11 @@ module.exports = (io, socket) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
 
     chat.messages.push({
-      date: Date.now(),
-      users: chat.users,
       author: username,
       content: message,
+      date: Date.now(),
       lastUploaded: Date.now(),
+      users: chat.users,
     });
 
     await chat.save();
