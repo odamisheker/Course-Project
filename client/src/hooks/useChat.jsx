@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import { UserContext } from "../components/context/UserContextProvider";
 import { ChatContext } from "../components/context/ChatContextProvider";
 
-import { useBeforeUnload } from "hooks";
+import { useBeforeUnload } from "./useBeforeUnload";
 
 // требуется перенаправление запросов - смотрите ниже
 const SERVER_URL = "http://localhost:8000";
@@ -55,7 +55,7 @@ export const useChat = () => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [roomId, user]);
+  }, [chatID, user]);
 
   // принимает объект с текстом сообщения и именем отправителя
   const sendMessage = (messageText) => {
@@ -85,6 +85,13 @@ export const useChat = () => {
   });
 
   // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
-  return { users, messages, sendMessage, editMessage, removeMessageForMe, removeMessage };
+  return {
+    users,
+    messages,
+    sendMessage,
+    editMessage,
+    removeMessageForMe,
+    removeMessage,
+  };
   //return { messages};
 };
