@@ -9,18 +9,8 @@ function Message({
   onDeleteForMe,
   onDelete,
   onEdit,
-  data: { _id, content, data },
+  data: { _id, content, date, currentUser },
 }) {
-  //data:{ ... }
-  /*
-  TODO:
-    time
-    date
-    maybe edit delete
-  */
-
-  //const { text, time, username } = data;
-
   const [position, setPosition] = useState({ x: null, y: null });
   const [menuActive, setMenuActive] = useState(false);
   const handleContextMenu = (e) => {
@@ -31,8 +21,10 @@ function Message({
 
   const [modalActive, setModalActive] = useState(false);
 
+  const classname = currentUser ? styles.currentUser : styles.otherUser;
+
   return (
-    <div className={styles.main}>
+    <div className={`${styles.main} ${classname}`}>
       <ContextMenu
         active={menuActive}
         setActive={setMenuActive}
@@ -69,11 +61,10 @@ function Message({
       <div className={styles.message} onContextMenu={handleContextMenu}>
         <p className={styles.content}>{content}</p>
         <p className={styles.time}>
-          {/* {new Date(time).toLocaleString(undefined, {
+          {new Date(parseInt(date)).toLocaleString(undefined, {
             hour: "2-digit",
             minute: "2-digit",
-          })} */}
-          23:45
+          })}
         </p>
       </div>
     </div>

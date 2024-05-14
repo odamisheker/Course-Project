@@ -11,7 +11,7 @@ export default function WindowChat() {
   const {
     chat: { chatID },
   } = useContext(ChatContext);
-  console.log(user);
+  //console.log(user);
   //const [messages, setMessages] = useState([]);
 
   const [message, setMessage] = useState("");
@@ -42,7 +42,7 @@ export default function WindowChat() {
     setMessage("");
   };
   // const { messages } = useChat(chatID);
-  console.log(messages);
+  // console.log(messages);
 
   return (
     <div className={styles.main}>

@@ -2,6 +2,16 @@
   max-width: 90%;
   overflow-wrap: break-word;
   word-wrap: break-word;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+.currentUser {
+  align-self: flex-end;
+}
+.otherUser {
+  align-self: flex-start;
 }
 .message {
   display: flex;
@@ -12,6 +22,9 @@
   background-color: #000000f5;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+.otherUser .message {
+  background-color: #313131;
 }
 .content {
   overflow-wrap: break-word;

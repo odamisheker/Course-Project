@@ -45,11 +45,13 @@ export const useChat = (chatID) => {
       // если значение свойства "userId" объекта сообщения совпадает с id пользователя,
       // то добавляем в объект сообщения свойство "currentUser" со значением "true",
       // иначе, просто возвращаем объект сообщения
-      // const newMessages = messages.map((msg) =>
-      //   msg.userID === user ? { ...msg, currentUser: true } : msg
-      // );
+      const newMessages = messages.map((msg) =>
+        msg.author === user
+          ? { ...msg, currentUser: true }
+          : { ...msg, currentUser: false }
+      );
 
-      setMessages(messages);
+      setMessages(newMessages);
     });
 
     return () => {
