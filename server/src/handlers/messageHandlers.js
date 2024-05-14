@@ -1,3 +1,4 @@
+const generateCode = require("../algorithms/generateCode");
 const Chat = require("../models/Chat");
 
 module.exports = (io, socket) => {
@@ -37,35 +38,34 @@ module.exports = (io, socket) => {
     getMessages();
   };
 
-  // * трэба с Никитой
-  //   const removeMessage = async (messageID) => {
-  //     const chat = await Chat.findOne({ chatID: socket.roomId });
+  const removeMessage = async (_id) => {
+    const chat = await Chat.findOne({ chatID: socket.roomId });
 
-  //     chat.messages.splice(
-  //       chat.messages.findIndex((message) => message[messageID] === messageID),
-  //       1
-  //     );
+    chat.messages.splice(
+      chat.messages.findIndex((message) => message._id == _id),
+      1
+    );
 
-  //     await chat.save();
+    await chat.save();
 
-  //     getMessages();
-  //   };
+    getMessages();
+  };
 
-  //   const removeMessageForMe = async (messageID, user) => {
-  //     const chat = await Chat.findOne({ chatID: socket.roomId });
+  const removeMessageForMe = async (message) => {
+    const chat = await Chat.findOne({ chatID: socket.roomId });
+    console.log(message.user);
+    const index = chat.messages.findIndex((item) => item._id == message._id);
+    console.log(index);
+    console.log(chat.messages[index].users.indexOf(message.user));
+    chat.messages[index].users.splice(
+      chat.messages[index].users.indexOf(message.user),
+      1
+    );
 
-  //     const index = chat.messages.findIndex(
-  //       (message) => message[messageID] === messageID
-  //     );
-  //     chat.messages[index][users].splice(
-  //       chat.messages[index][users].indexOf(user),
-  //       1
-  //     );
+    await chat.save();
 
-  //     await chat.save();
-
-  //     getMessages();
-  //   };
+    getMessages();
+  };
 
   //   const removeChat = async () => {
   //     // const chat = await Chat.findOneAndDelete({ chatID: socket.roomId });
@@ -82,7 +82,7 @@ module.exports = (io, socket) => {
   // регистрируем обработчики
   socket.on("message:get", getMessages);
   socket.on("message:add", sendMessage);
-  //   socket.on("message:remove", removeMessage);
-  //   socket.on("message:removeForMe", removeMessageForMe);
-  //   socket.on("message:removeChat", removeChat)
+  socket.on("message:remove", removeMessage);
+  socket.on("message:removeForMe", removeMessageForMe);
+  //   socket.on("message:removeChat", removeChat);
 };

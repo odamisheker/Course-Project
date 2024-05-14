@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
 import styles from "./Message.module.css";
 import ContextMenu from "../ContextMenu/ContextMenu";
 import clipboard from "clipboard-copy";
+import { UserContext } from "../context/UserContextProvider";
 
 function Message({
   onDeleteForMe,
   onDelete,
-  onEdit,
   data: { _id, content, date, currentUser },
 }) {
   const [position, setPosition] = useState({ x: null, y: null });
@@ -22,6 +22,8 @@ function Message({
   const [modalActive, setModalActive] = useState(false);
 
   const classname = currentUser ? styles.currentUser : styles.otherUser;
+
+  const { user } = useContext(UserContext);
 
   return (
     <div className={`${styles.main} ${classname}`}>
@@ -51,7 +53,7 @@ function Message({
         </p>
       </ContextMenu>
       <Modal active={modalActive} setActive={setModalActive}>
-        <p className={styles.menuItem} onClick={() => onDeleteForMe(_id)}>
+        <p className={styles.menuItem} onClick={() => onDeleteForMe(_id, user)}>
           Delete
         </p>
         <p className={styles.menuItem} onClick={() => onDelete(_id)}>

@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const Chat = require("../models/Chat");
-const Message = require("../models/Message");
 const generateCode = require("../algorithms/generateCode");
 
 class chatController {

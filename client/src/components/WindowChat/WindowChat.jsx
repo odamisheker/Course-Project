@@ -21,8 +21,8 @@ export default function WindowChat() {
     // users,
     sendMessage,
     // editMessage,
-    // removeMessageForMe,
-    // removeMessage,
+    removeMessageForMe,
+    removeMessage,
   ] = useChat(chatID);
 
   const handleKeyPress = (e) => {
@@ -58,8 +58,8 @@ export default function WindowChat() {
                   key={i}
                   data={m}
                   // onEdit={handleEdit}
-                  // onDeleteForMe={removeMessageForMe}
-                  // onDelete={removeMessage}
+                  onDeleteForMe={removeMessageForMe}
+                  onDelete={removeMessage}
                 />
               ))}
         </div>

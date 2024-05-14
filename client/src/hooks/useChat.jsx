@@ -7,7 +7,6 @@ import { ChatContext } from "../components/context/ChatContextProvider";
 
 import { useBeforeUnload } from "./useBeforeUnload";
 
-// требуется перенаправление запросов - смотрите ниже
 const SERVER_URL = "http://localhost:8000";
 
 export const useChat = (chatID) => {
@@ -18,33 +17,21 @@ export const useChat = (chatID) => {
 
   // const { chatID } = useContext(ChatContext);
 
-  // useRef() используется не только для получения доступа к DOM-элементам,
-  // но и для хранения любых мутирующих значений в течение всего жизненного цикла компонента
   const socketRef = useRef(null);
 
   useEffect(() => {
-    // создаем экземпляр сокета, передаем ему адрес сервера
-    // и записываем объект с названием комнаты в строку запроса "рукопожатия"
-    // socket.handshake.query.roomId
     socketRef.current = io(SERVER_URL, {
       query: { chatID },
     });
 
-    // отправляем событие добавления пользователя,
-    // в качестве данных передаем объект с именем и id пользователя
-    socketRef.current.emit("user:add", { user }); //!username брать с контекст user
-
+    socketRef.current.emit("user:add", { user });
     socketRef.current.on("users", (users) => {
-      setUsers(users); //! надо сделать на бэке для отдельных комнат
+      setUsers(users);
     });
 
     socketRef.current.emit("message:get");
 
     socketRef.current.on("messages", (messages) => {
-      // определяем, какие сообщения были отправлены данным пользователем,
-      // если значение свойства "userId" объекта сообщения совпадает с id пользователя,
-      // то добавляем в объект сообщения свойство "currentUser" со значением "true",
-      // иначе, просто возвращаем объект сообщения
       const newMessages = messages.map((msg) =>
         msg.author === user
           ? { ...msg, currentUser: true }
@@ -59,23 +46,20 @@ export const useChat = (chatID) => {
     };
   }, [chatID, user]);
 
-  // принимает объект с текстом сообщения и именем отправителя
   const sendMessage = (messageText, user) => {
-    // зачем sender name если можно просто username
-    // добавляем в объект id пользователя при отправке на сервер
     socketRef.current.emit("message:add", {
       messageText,
       user,
     });
   };
 
-  // функция удаления сообщения по id
-  // const removeMessageForMe = (id) => {
-  //   socketRef.current.emit("message:removeForMe", id);
-  // };
-  // const removeMessage = (id) => {
-  //   socketRef.current.emit("message:remove", id);
-  // };
+  const removeMessageForMe = (_id, user) => {
+    socketRef.current.emit("message:removeForMe", { _id, user });
+  };
+
+  const removeMessage = (_id) => {
+    socketRef.current.emit("message:remove", _id);
+  };
 
   // const editMessage = (id, messageText) => {
   //   socketRef.current.emit("message:edit", { id, messageText });
@@ -86,14 +70,12 @@ export const useChat = (chatID) => {
     socketRef.current.emit("user:leave", user);
   });
 
-  // хук возвращает пользователей, сообщения и функции для отправки удаления сообщений
   return [
     // users,
     messages,
     sendMessage,
     // editMessage,
-    // removeMessageForMe,
-    // removeMessage,
+    removeMessageForMe,
+    removeMessage,
   ];
-  //return { messages};
 };
