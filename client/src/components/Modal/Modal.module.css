@@ -27,7 +27,8 @@
 
   padding: 15px;
 
-  border-radius: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
 
   transform: scale(0.5);
   transition: all 0.4s;

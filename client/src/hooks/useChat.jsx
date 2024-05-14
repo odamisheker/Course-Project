@@ -32,11 +32,18 @@ export const useChat = (chatID) => {
     socketRef.current.emit("message:get");
 
     socketRef.current.on("messages", (messages) => {
-      const newMessages = messages.map((msg) =>
-        msg.author === user
-          ? { ...msg, currentUser: true }
-          : { ...msg, currentUser: false }
-      );
+      // const newMessages = messages.map((msg) =>
+      //   msg.author === user
+      //     ? { ...msg, currentUser: true }
+      //     : { ...msg, currentUser: false }
+      // );
+
+      const newMessages = messages
+        .filter((msg) => msg.users.includes(user))
+        .map((msg) => ({
+          ...msg,
+          currentUser: msg.author === user,
+        }));
 
       setMessages(newMessages);
     });

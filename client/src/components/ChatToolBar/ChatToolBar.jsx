@@ -16,7 +16,7 @@ const ChatToolBar = () => {
           {/* <p className={styles.extraText}>5 minutes again</p> */}
         </div>
       </div>
-      <Modal>
+      <Modal active={modalActive} setActive={setModalActive}>
         <p>delete</p>
       </Modal>
     </>
