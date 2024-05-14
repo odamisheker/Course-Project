@@ -1,4 +1,3 @@
-const generateCode = require("../algorithms/generateCode");
 const Chat = require("../models/Chat");
 
 module.exports = (io, socket) => {
@@ -20,10 +19,6 @@ module.exports = (io, socket) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
     console.log(chat);
     console.log(message);
-
-    // ! ошиька была из-за того, что я не знал, что мне приходит все в одном объекте
-    // * message = { messageText: "", user: "" }
-    // * оставляем?
 
     chat.messages.push({
       date: Date.now(),
@@ -51,14 +46,14 @@ module.exports = (io, socket) => {
     getMessages();
   };
 
-  const removeMessageForMe = async (message) => {
+  const removeMessageForMe = async (data) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
-    console.log(message.user);
-    const index = chat.messages.findIndex((item) => item._id == message._id);
+    console.log(data.user);
+    const index = chat.messages.findIndex((message) => message._id == data._id);
     console.log(index);
-    console.log(chat.messages[index].users.indexOf(message.user));
+    console.log(chat.messages[index].users.indexOf(data.user));
     chat.messages[index].users.splice(
-      chat.messages[index].users.indexOf(message.user),
+      chat.messages[index].users.indexOf(data.user),
       1
     );
 
@@ -68,15 +63,7 @@ module.exports = (io, socket) => {
   };
 
   //   const removeChat = async () => {
-  //     // const chat = await Chat.findOneAndDelete({ chatID: socket.roomId });
-  //     // * or
-  //     const chat = await Chat.findOne({ chatID: socket.roomId });
-
-  //     chat.messages.splice(0);
-
-  //     await chat.save();
-
-  //     getMessages();
+  //     const chat = await Chat.findOneAndDelete({ chatID: socket.roomId });
   //   };
 
   // регистрируем обработчики
