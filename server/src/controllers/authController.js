@@ -11,7 +11,7 @@ const generateAccessToken = (id, roles) => {
     id,
     roles,
   };
-  return jwt.sign(payload, secret, { expiresIn: "24h" });
+  return jwt.sign(payload, secret, { expiresIn: "2h" });
 };
 
 class authController {
@@ -34,7 +34,7 @@ class authController {
       const hashPassword = bcrypt.hashSync(password, 4);
       const userRole = await Role.findOne({ value: "USER" });
       const user = new User({
-        username,
+        username: username,
         password: hashPassword,
         roles: [userRole.value],
       });
@@ -85,10 +85,8 @@ class authController {
   }
 
   async getUsers(req, res) {
-    try {
-      const users = await User.find();
-      res.json(users);
-    } catch (e) {}
+    const users = await User.find();
+    res.json(users);
   }
 }
 

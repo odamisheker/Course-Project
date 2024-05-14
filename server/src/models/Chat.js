@@ -5,8 +5,6 @@ const Chat = new Schema({
   users: [{ type: String, required: true, ref: "User" }],
   chatID: { type: String, unique: true, required: true },
   created: { type: String, required: true },
-  // messages: [{ type: String, required: true, ref: "./Message" }],
-  // * add other conrollers
   messages: [
     new Schema({
       author: { type: String, required: true, ref: "User" },

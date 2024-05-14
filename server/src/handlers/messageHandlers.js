@@ -67,10 +67,22 @@ module.exports = (io, socket) => {
   //     getMessages();
   //   };
 
+  //   const removeChat = async () => {
+  //     // const chat = await Chat.findOneAndDelete({ chatID: socket.roomId });
+  //     // * or
+  //     const chat = await Chat.findOne({ chatID: socket.roomId });
+
+  //     chat.messages.splice(0);
+
+  //     await chat.save();
+
+  //     getMessages();
+  //   };
+
   // регистрируем обработчики
   socket.on("message:get", getMessages);
   socket.on("message:add", sendMessage);
   //   socket.on("message:remove", removeMessage);
   //   socket.on("message:removeForMe", removeMessageForMe);
-  // ToDo: socket.on("message:edit", editMessage);
+  //   socket.on("message:removeChat", removeChat)
 };
