@@ -15,15 +15,21 @@ module.exports = (io, socket) => {
     io.in(socket.roomId).emit("messages", messages);
   };
 
-  const sendMessage = async (message, username) => {
+  const sendMessage = async (message) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
+    console.log(chat);
+    console.log(message);
+
+    // ! ошиька была из-за того, что я не знал, что мне приходит все в одном объекте
+    // * message = { messageText: "", user: "" }
+    // * оставляем?
 
     chat.messages.push({
-      author: username,
-      content: message,
       date: Date.now(),
-      lastUploaded: Date.now(),
+      author: message.user,
+      content: message.messageText,
       users: chat.users,
+      lastUploaded: Date.now(),
     });
 
     await chat.save();
@@ -31,11 +37,32 @@ module.exports = (io, socket) => {
     getMessages();
   };
 
-  // обрабатываем удаление сообщение
-  // функция принимает id сообщения
-  // ToDO:
-  //   const removeMessage = (messageId) => {
-  //     db.get("messages").remove({ messageId }).write();
+  // * трэба с Никитой
+  //   const removeMessage = async (messageID) => {
+  //     const chat = await Chat.findOne({ chatID: socket.roomId });
+
+  //     chat.messages.splice(
+  //       chat.messages.findIndex((message) => message[messageID] === messageID),
+  //       1
+  //     );
+
+  //     await chat.save();
+
+  //     getMessages();
+  //   };
+
+  //   const removeMessageForMe = async (messageID, user) => {
+  //     const chat = await Chat.findOne({ chatID: socket.roomId });
+
+  //     const index = chat.messages.findIndex(
+  //       (message) => message[messageID] === messageID
+  //     );
+  //     chat.messages[index][users].splice(
+  //       chat.messages[index][users].indexOf(user),
+  //       1
+  //     );
+
+  //     await chat.save();
 
   //     getMessages();
   //   };
@@ -43,7 +70,7 @@ module.exports = (io, socket) => {
   // регистрируем обработчики
   socket.on("message:get", getMessages);
   socket.on("message:add", sendMessage);
-  //   socket.on("message:remove", deleteMessage);
-  //   socket.on("message:removeForMe", deleteMessageForMe);
+  //   socket.on("message:remove", removeMessage);
+  //   socket.on("message:removeForMe", removeMessageForMe);
   // ToDo: socket.on("message:edit", editMessage);
 };
