@@ -4,6 +4,7 @@ import ContextMenu from "../ContextMenu/ContextMenu";
 import { ChatContext } from "../context/ChatContextProvider";
 import axios from "axios";
 import { UserContext } from "../context/UserContextProvider";
+import { apiClient } from "../../api";
 
 const User = ({ name, id }) => {
   const { user } = useContext(UserContext);
@@ -21,11 +22,8 @@ const User = ({ name, id }) => {
   const handleOpenChat = () => {
     if (id) changeChat({ chatID: id, chatname: name });
     else {
-      axios
-        .post("http://localhost:8000/chat/chat", {
-          username1: user,
-          username2: name,
-        })
+      apiClient
+        .checkChat({ username1: user, username2: name })
         .then((r) => {
           console.log(r.data);
           //changeChatId(r.data);
@@ -33,8 +31,8 @@ const User = ({ name, id }) => {
         })
         .catch((e) => {
           console.log("Chat not exists", e.response);
-          axios
-            .post("http://localhost:8000/chat/chat/create", {
+          apiClient
+            .createChat({
               username1: user,
               username2: name,
             })

@@ -11,7 +11,7 @@ const generateAccessToken = (id, roles) => {
     id,
     roles,
   };
-  return jwt.sign(payload, secret, { expiresIn: "2h" });
+  return jwt.sign(payload, secret, { expiresIn: "1h" });
 };
 
 class authController {

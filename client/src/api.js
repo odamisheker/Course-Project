@@ -14,7 +14,9 @@ api_client.interceptors.request.use(
   (config) => {
     const token = Cookies.get("token");
     if (token) {
-      config.headers.Authorization = `${token}`;
+      // config.headers.Authorization = token;
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log(config.headers.Authorization);
     }
     return config;
   },
@@ -27,7 +29,12 @@ class api {
   constructor() {
     this.apiClient = api_client;
   }
-
+  checkChat(data) {
+    return this.apiClient.post("/chat/chat", data);
+  }
+  createChat(data) {
+    return this.apiClient.post("/chat/chat/create", data);
+  }
   //* сhecks for existence user and correctness of the password
   checkUser(data) {
     return this.apiClient.post("/auth/login", data);

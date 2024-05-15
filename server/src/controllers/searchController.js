@@ -24,13 +24,6 @@ class searchController {
       res.status(400).json({ message: "Search error." });
     }
   }
-
-  // async findChat(req, res) {
-  //   try {
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
 }
 
 module.exports = new searchController();

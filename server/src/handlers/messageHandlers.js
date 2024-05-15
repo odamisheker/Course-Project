@@ -8,7 +8,7 @@ module.exports = (io, socket) => {
       chatID: socket.roomId,
     });
 
-    console.log(chat);
+    // console.log(chat);
 
     const messages = chat.messages;
 
@@ -17,8 +17,8 @@ module.exports = (io, socket) => {
 
   const sendMessage = async (message) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
-    console.log(chat);
-    console.log(message);
+    // console.log(chat);
+    // console.log(message);
 
     chat.messages.push({
       date: Date.now(),
@@ -48,10 +48,13 @@ module.exports = (io, socket) => {
 
   const removeMessageForMe = async (data) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
-    console.log(data.user);
+
+    // console.log(data.user);
     const index = chat.messages.findIndex((message) => message._id == data._id);
-    console.log(index);
-    console.log(chat.messages[index].users.indexOf(data.user));
+
+    // console.log(index);
+    // console.log(chat.messages[index].users.indexOf(data.user));
+
     chat.messages[index].users.splice(
       chat.messages[index].users.indexOf(data.user),
       1

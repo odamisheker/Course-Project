@@ -1,10 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
-
+import Cookies from "js-cookie";
 import io from "socket.io-client";
-
 import { UserContext } from "../components/context/UserContextProvider";
 import { ChatContext } from "../components/context/ChatContextProvider";
-
 import { useBeforeUnload } from "./useBeforeUnload";
 
 const SERVER_URL = "http://localhost:8000";
@@ -20,8 +18,9 @@ export const useChat = (chatID) => {
   const socketRef = useRef(null);
 
   useEffect(() => {
+    const token = Cookies.get("token");
     socketRef.current = io(SERVER_URL, {
-      query: { chatID },
+      query: { chatID, token },
     });
 
     socketRef.current.emit("user:add", { user });
