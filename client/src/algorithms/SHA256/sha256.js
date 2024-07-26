@@ -1,6 +1,4 @@
-import { generateSalt } from "./Salt";
-
-export function SHA256(password, salt) {
+export function SHA256(password) {
   const chrsz = 8;
   const hexcase = 0;
 
@@ -148,11 +146,11 @@ export function SHA256(password, salt) {
     return str;
   }
 
-  password = password.concat(salt);
+  // password = password.concat(salt);
 
   password = Utf8Encode(password);
   return (
-    binb2hex(SHA256Core(str2binb(password), password.length * chrsz)), salt
+    binb2hex(SHA256Core(str2binb(password), password.length * chrsz))
   );
 }
 

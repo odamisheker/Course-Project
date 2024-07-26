@@ -52,6 +52,10 @@ class api {
   getChats(data) {
     return this.apiClient.post("/auth/chats", data);
   }
+
+  getSalt(data) {
+    return this.apiClient.get("/auth/login", data);
+  }
 }
 
 export const apiClient = new api();

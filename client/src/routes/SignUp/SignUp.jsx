@@ -36,14 +36,19 @@ export default function SignUp() {
     }
 
     const salt = generateSalt();
-    const hashedPassword = SHA256(password, salt);
+    const PreHashedPassword = password.concat(salt)
 
+    console.log("hashed password", PreHashedPassword)
     console.log(salt);
+
+    if (salt === PreHashedPassword) {
+      console.log("same")
+    }
 
     apiClient
       .addUser({
         username: name,
-        password: hashedPassword,
+        password: SHA256(PreHashedPassword),
         salt: salt,
       })
       .then((res) => {
@@ -56,6 +61,7 @@ export default function SignUp() {
         setErrors(e.response.data.message);
       });
   };
+
 
   return (
     <div className={styles.main}>

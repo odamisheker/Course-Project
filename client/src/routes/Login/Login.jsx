@@ -4,6 +4,7 @@ import { UserContext } from "../../components/context/UserContextProvider";
 import { apiClient } from "../../api";
 import Cookies from "js-cookie";
 import styles from "./Login.module.css";
+import { SHA256 } from "../../algorithms/SHA256/sha256";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -20,21 +21,29 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
-    if (name.trim() == "" || password.trim() == "") return;
-
-    apiClient
-      .checkUser({ username: name.trim(), password: password.trim() })
-      .then((res) => {
-        console.log(res.data);
-        Cookies.set("token", res.data.token);
-        changeUser(res.data.username);
-        navigate("/chat");
-      })
-      .catch((e) => {
-        // console.log(e);
-        setError(e.response.data.message);
+    if (name.trim() === "" || password.trim() === "") return;
+    try {
+      const salt = await apiClient.getSalt({ username: name.trim() });
+      console.log("salt", salt);
+  
+      const PreHashedPassword = password.concat(salt);
+      const hashedPassword = SHA256(PreHashedPassword);
+  
+      const res = await apiClient.checkUser({
+        username: name.trim(),
+        password: hashedPassword.trim(),
       });
+      console.log(res.data);
+      Cookies.set("token", res.data.token);
+      changeUser(res.data.username);
+      navigate("/chat");
+    } catch (e) {
+      console.error(e);
+      setError(e.response?.data?.message || "Login error");
+    }
   };
+
+  // console.log(apiClient.getSalt({username: name.trim(), password: password.trim()}))
 
   return (
     <div className={styles.main}>

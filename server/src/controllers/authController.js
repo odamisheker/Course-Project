@@ -47,24 +47,56 @@ class authController {
     }
   }
 
-  async login(req, res) {
+  // async login(req, res) {
+  //   try {
+  //     const { username, password } = req.body;
+  //     const user = await User.findOne({ username });
+  //     if (!user) {
+  //       return res
+  //         .status(400)
+  //         .json({ message: "There is no user with that username." });
+  //     }
+  //     const validPassword = bcrypt.compareSync(password, user.password);
+  //     if (!validPassword) {
+  //       return res.status(400).json({ message: "Incorrect password." });
+  //     }
+  //     const token = generateAccessToken(user._id, user.roles);
+  //     return res.json({ token, username: user.username });
+  //   } catch (e) {
+  //     console.log(e);
+  //     res.status(400).json({ message: "Login error." });
+  //   }
+  // }
+
+  async getSalt(req, res) {
     try {
-      const { username, password } = req.body;
-      const user = await User.findOne({ username });
+      const { username } = req.body;
+      const user = await User.findOne({ username: username });
+      console.log(user)
       if (!user) {
         return res
           .status(400)
           .json({ message: "There is no user with that username." });
       }
-      const validPassword = bcrypt.compareSync(password, user.password);
-      if (!validPassword) {
+      const salt = user.salt;
+      return res.json({ salt: salt.trim() });    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "Login error." });
+    }
+  }
+
+  async Login(req, res) {
+    try {
+      const { username, password } = req.body;
+      const user = await User.findOne({ username });
+      if (password != user.password) {
         return res.status(400).json({ message: "Incorrect password." });
       }
       const token = generateAccessToken(user._id, user.roles);
       return res.json({ token, username: user.username });
     } catch (e) {
       console.log(e);
-      res.status(400).json({ message: "Login error." });
+      res.status(400).json({ message: "Login Error." });
     }
   }
 

@@ -5,7 +5,9 @@ const roleMiddleware = require("../middlewares/roleMiddleware");
 
 router.post("/registration", controller.registration);
 router.get("/users", roleMiddleware(["ADMIN"]), controller.getUsers);
-router.post("/login", controller.login);
+// router.post("/login", controller.login);
 router.post("/chats", controller.getChats);
+router.get("/login", controller.getSalt);
+router.post("/login", controller.Login);
 
 module.exports = router;
