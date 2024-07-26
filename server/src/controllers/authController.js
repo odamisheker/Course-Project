@@ -24,18 +24,19 @@ class authController {
           errors,
         });
       }
-      const { username, password } = req.body;
+      const { username, password, salt } = req.body;
       const candidate = await User.findOne({ username });
       if (candidate) {
         return res
           .status(400)
           .json({ message: "A User with the same name already exists." });
       }
-      const hashPassword = bcrypt.hashSync(password, 4);
+      // const hashPassword = bcrypt.hashSync(password, 4);
       const userRole = await Role.findOne({ value: "USER" });
       const user = new User({
         username: username,
-        password: hashPassword,
+        password: password,
+        salt: salt,
         roles: [userRole.value],
       });
       await user.save();

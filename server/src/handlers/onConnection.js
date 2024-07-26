@@ -1,3 +1,4 @@
+// onConnection.js
 const registerMessageHandlers = require("./messageHandlers");
 
 const onConnection = (io, socket) => {

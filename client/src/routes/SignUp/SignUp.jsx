@@ -4,6 +4,8 @@ import { UserContext } from "../../components/context/UserContextProvider";
 import { User } from "../../utils/validation";
 import styles from "./SignUp.module.css";
 import { apiClient } from "../../api";
+import { SHA256 } from "../../algorithms/SHA256/sha256";
+import { generateSalt } from "../../algorithms/SHA256/Salt";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -33,10 +35,16 @@ export default function SignUp() {
       return;
     }
 
+    const salt = generateSalt();
+    const hashedPassword = SHA256(password, salt);
+
+    console.log(salt);
+
     apiClient
       .addUser({
         username: name,
-        password: password,
+        password: hashedPassword,
+        salt: salt,
       })
       .then((res) => {
         changeUser(name);

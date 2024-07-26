@@ -15,11 +15,10 @@ module.exports = (io, socket) => {
     io.in(socket.roomId).emit("messages", messages);
   };
 
+  // messageHandlers.js
   const sendMessage = async (message) => {
     const chat = await Chat.findOne({ chatID: socket.roomId });
-    // console.log(chat);
-    // console.log(message);
-
+    
     chat.messages.push({
       date: Date.now(),
       author: message.user,

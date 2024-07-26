@@ -1,4 +1,4 @@
-import {generateSalt} from './Salt'
+import { generateSalt } from "./Salt";
 
 export function SHA256(password, salt) {
   const chrsz = 8;
@@ -151,10 +151,12 @@ export function SHA256(password, salt) {
   password = password.concat(salt);
 
   password = Utf8Encode(password);
-  return binb2hex(SHA256Core(str2binb(password), password.length * chrsz)), salt;
+  return (
+    binb2hex(SHA256Core(str2binb(password), password.length * chrsz)), salt
+  );
 }
 
-let salt = generateSalt();
+// let salt = generateSalt();
 
 // const password = 'qwerty123I';
 // const hashedPassword = SHA256(password, salt);

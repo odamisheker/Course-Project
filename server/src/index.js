@@ -27,6 +27,8 @@ const io = require("socket.io")(server, {
 });
 
 io.use(ioMiddleware);
+
+// index.js
 io.on("connection", (socket) => {
   onConnection(io, socket);
 });
