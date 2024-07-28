@@ -25,8 +25,9 @@ export default function Login() {
     try {
       const salt = await apiClient.getSalt({ username: name.trim() });
       console.log("salt", salt);
-  
-      const PreHashedPassword = password.concat(salt);
+      console.log("type", typeof(salt))
+      
+      const PreHashedPassword = password.concat(salt.data.salt);
       const hashedPassword = SHA256(PreHashedPassword);
   
       const res = await apiClient.checkUser({

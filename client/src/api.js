@@ -54,7 +54,7 @@ class api {
   }
 
   getSalt(data) {
-    return this.apiClient.get("/auth/login", data);
+    return this.apiClient.post("/auth/salt", data);
   }
 }
 
