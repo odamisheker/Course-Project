@@ -5,6 +5,9 @@ import styles from "./WindowChat.module.css";
 import ChatToolBar from "../ChatToolBar/ChatToolBar";
 import { ChatContext } from "../context/ChatContextProvider";
 import { useChat } from "../../hooks/useChat";
+import { CTR } from "../../algorithms/AES/CTR";
+import { Counter } from "../../algorithms/AES/utils/counter";
+import Cookies from "js-cookie";
 
 export default function WindowChat() {
   const { user } = useContext(UserContext);
@@ -25,6 +28,8 @@ export default function WindowChat() {
     removeMessage,
   ] = useChat(chatID);
 
+  let encoder = new TextEncoder();
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSend();
@@ -36,8 +41,23 @@ export default function WindowChat() {
     //setMessage(message.trim());
     if (!message.trim()) return;
 
+    const AESkey = Cookies.get("AESkey");
+    console.log(AESkey);
+    
+    const text = message;
+    let textBytes = encoder.encode(text);
+    let encryptedBytes = new Uint8Array(textBytes.length);
+
+    let aesCTR = new CTR(AESkey, new Counter(0));
+    aesCTR.encrypt(textBytes, encryptedBytes);
+
+    console.log("penis", typeof(aesCTR.encrypt(textBytes, encryptedBytes)))
+
+    // console.log("str", str, typeof(str));
+    // let jnsrt = encryptedMessage.join("")
+
     //setMessages((c) => [...c, message.trim()]);
-    sendMessage(message, user);
+    sendMessage(aesCTR.encrypt(textBytes, encryptedBytes), user);
 
     setMessage("");
   };

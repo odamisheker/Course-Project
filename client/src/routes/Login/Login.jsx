@@ -5,6 +5,8 @@ import { apiClient } from "../../api";
 import Cookies from "js-cookie";
 import styles from "./Login.module.css";
 import { SHA256 } from "../../algorithms/SHA256/sha256";
+import { generateAESKey } from "../../algorithms/AES/utils/generateKey";
+import { generateKeyPair } from "../../algorithms/RSA/utils/generateKeyPair";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -26,7 +28,7 @@ export default function Login() {
       const salt = await apiClient.getSalt({ username: name.trim() });
       console.log("salt", salt);
       console.log("type", typeof(salt))
-      
+
       const PreHashedPassword = password.concat(salt.data.salt);
       const hashedPassword = SHA256(PreHashedPassword);
   
@@ -35,7 +37,17 @@ export default function Login() {
         password: hashedPassword.trim(),
       });
       console.log(res.data);
+
+      const AESkey = generateAESKey(password, salt.data.salt);
+      const RSAPair = generateKeyPair();
+
+      console.log("RSA Pair", RSAPair, typeof(RSAPair));
+      console.log("AESKey", AESkey, typeof(AESkey));
+
       Cookies.set("token", res.data.token);
+      Cookies.set("AESkey", AESkey);
+      Cookies.set("RSAKeyPair", RSAPair);
+
       changeUser(res.data.username);
       navigate("/chat");
     } catch (e) {
@@ -43,8 +55,6 @@ export default function Login() {
       setError(e.response?.data?.message || "Login error");
     }
   };
-
-  // console.log(apiClient.getSalt({username: name.trim(), password: password.trim()}))
 
   return (
     <div className={styles.main}>
