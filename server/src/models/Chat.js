@@ -8,7 +8,7 @@ const Chat = new Schema({
   messages: [
     new Schema({
       author: { type: String, required: true, ref: "User" },
-      content: { type: String, required: true },
+      content: { type: Array, required: true },
       date: { type: String, required: true },
       lastUploaded: { type: String, required: true },
       users: [{ type: String, required: true, ref: "User" }],

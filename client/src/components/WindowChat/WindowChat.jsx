@@ -28,7 +28,7 @@ export default function WindowChat() {
     removeMessage,
   ] = useChat(chatID);
 
-  let encoder = new TextEncoder();
+  const encoder = new TextEncoder();
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -43,23 +43,23 @@ export default function WindowChat() {
 
     const AESkey = Cookies.get("AESkey");
     console.log(AESkey);
-    
-    const text = message;
-    let textBytes = encoder.encode(text);
+    let textBytes = encoder.encode(message);
     let encryptedBytes = new Uint8Array(textBytes.length);
 
     let aesCTR = new CTR(AESkey, new Counter(0));
+
     aesCTR.encrypt(textBytes, encryptedBytes);
 
-    console.log("penis", typeof(aesCTR.encrypt(textBytes, encryptedBytes)))
-
-    // console.log("str", str, typeof(str));
-    // let jnsrt = encryptedMessage.join("")
-
+    console.log("message", message);
+    let encrMessage = encryptedBytes;
+    console.log("encr", encrMessage);
+    let str = encrMessage.toString();
     //setMessages((c) => [...c, message.trim()]);
-    sendMessage(aesCTR.encrypt(textBytes, encryptedBytes), user);
+    sendMessage(str, user);
 
     setMessage("");
+
+    // getMessage(str);
   };
   // const { messages } = useChat(chatID);
   // console.log(messages);
